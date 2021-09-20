@@ -2,7 +2,7 @@
 
 # Escape Helper
 
-Light, Simple and Small IP Helper
+Light, Simple and Small Escape Helper: HTML, CSS, JS ...
 
 ## Contact & Support
 
