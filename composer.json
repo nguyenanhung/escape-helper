@@ -29,7 +29,8 @@
             "nguyenanhung\\Libraries\\Escape\\": "src/"
         },
         "files": [
-            "helpers/helpers.php"
+            "helpers/helpers.php",
+            "helpers/ci_security_helper.php"
         ]
     }
 }
