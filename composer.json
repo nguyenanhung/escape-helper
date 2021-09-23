@@ -30,8 +30,7 @@
             "nguyenanhung\\Libraries\\Escape\\": "src/"
         },
         "files": [
-            "helpers/helpers.php",
-            "helpers/ci_security_helper.php"
+            "helpers/helpers.php"
         ]
     }
 }

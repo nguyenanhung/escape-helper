@@ -289,5 +289,100 @@ if (!function_exists('_xss_clean_')) {
         return (new Escape())->xssClean($str, $isImage);
     }
 }
-
-
+if (!function_exists('do_hash')) {
+    /**
+     * Hash encode a string
+     *
+     * @todo          Remove in version 3.1+.
+     * @deprecated    3.0.0    Use PHP's native hash() instead.
+     *
+     * @param string $str
+     * @param string $type = 'sha1'
+     *
+     * @return    string
+     */
+    function do_hash($str, $type = 'sha1')
+    {
+        return (new Escape())->doHash($str, $type);
+    }
+}
+if (!function_exists('encode_php_tags')) {
+    /**
+     * Convert PHP tags to entities
+     *
+     * @param string
+     *
+     * @return    string
+     */
+    function encode_php_tags($str)
+    {
+        return (new Escape())->encodePhpTags($str);
+    }
+}
+if (!function_exists('encodePhpTags')) {
+    /**
+     * Convert PHP tags to entities
+     *
+     * @param string
+     *
+     * @return    string
+     */
+    function encodePhpTags($str)
+    {
+        return (new Escape())->encodePhpTags($str);
+    }
+}
+if (!function_exists('strip_image_tags')) {
+    /**
+     * Strip Image Tags
+     *
+     * @param string
+     *
+     * @return    string
+     */
+    function strip_image_tags($str)
+    {
+        return (new Escape())->stripImageTags($str);
+    }
+}
+if (!function_exists('stripImageTags')) {
+    /**
+     * Strip Image Tags
+     *
+     * @param string
+     *
+     * @return    string
+     */
+    function stripImageTags($str)
+    {
+        return (new Escape())->stripImageTags($str);
+    }
+}
+if (!function_exists('sanitize_filename')) {
+    /**
+     * Sanitize Filename
+     *
+     * @param string $str           Input file name
+     * @param bool   $relative_path Whether to preserve paths
+     *
+     * @return    string
+     */
+    function sanitize_filename($str, $relative_path = false)
+    {
+        return (new Escape())->sanitizeFilename($str, $relative_path);
+    }
+}
+if (!function_exists('sanitizeFilename')) {
+    /**
+     * Sanitize Filename
+     *
+     * @param string $str           Input file name
+     * @param bool   $relative_path Whether to preserve paths
+     *
+     * @return    string
+     */
+    function sanitizeFilename($str, $relative_path = false)
+    {
+        return (new Escape())->sanitizeFilename($str, $relative_path);
+    }
+}
