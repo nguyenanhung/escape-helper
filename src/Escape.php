@@ -111,7 +111,7 @@ class Escape implements Environment
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/23/2021 59:45
      */
-    public function xssHash()
+    public function xssHash(): string
     {
         if ($this->_xssHash === null) {
             $rand           = $this->getRandomBytes(16);
@@ -130,7 +130,7 @@ class Escape implements Environment
      *
      * @return    string
      */
-    public function getRandomBytes($length)
+    public function getRandomBytes(int $length)
     {
         if (empty($length) || !ctype_digit((string) $length)) {
             return false;
@@ -139,7 +139,7 @@ class Escape implements Environment
         if (function_exists('random_bytes')) {
             try {
                 // The cast is required to avoid TypeError
-                return random_bytes((int) $length);
+                return random_bytes($length);
             } catch (Exception $e) {
                 // If random_bytes() can't do the job, we can't either ...
                 // There's no point in using fallbacks.
@@ -187,12 +187,12 @@ class Escape implements Environment
      *
      * @link    http://php.net/html-entity-decode
      *
-     * @param string $str     Input
-     * @param string $charset Character set
+     * @param string      $str     Input
+     * @param string|null $charset Character set
      *
      * @return    string
      */
-    public function entityDecode($str, $charset = null)
+    public function entityDecode(string $str, string $charset = null): string
     {
         if (strpos($str, '&') === false) {
             return $str;
@@ -259,7 +259,7 @@ class Escape implements Environment
      *
      * @return    string
      */
-    public function doHash($str, $type = 'sha1')
+    public function doHash(string $str, string $type = 'sha1'): string
     {
         if (!in_array(strtolower($type), hash_algos(), true)) {
             $type = 'md5';
@@ -275,7 +275,7 @@ class Escape implements Environment
      *
      * @return    string
      */
-    public function encodePhpTags($str)
+    public function encodePhpTags($str): string
     {
         return str_replace(array('<?', '?>'), array('&lt;?', '?&gt;'), $str);
     }
@@ -287,7 +287,7 @@ class Escape implements Environment
      *
      * @return    string
      */
-    public function stripImageTags($str)
+    public function stripImageTags($str): string
     {
         return preg_replace(
             array(
@@ -307,7 +307,7 @@ class Escape implements Environment
      *
      * @return    string
      */
-    public function sanitizeFilename($str, $relative_path = false)
+    public function sanitizeFilename(string $str, bool $relative_path = false): string
     {
         $bad = $this->filenameBadChars;
 
@@ -337,7 +337,7 @@ class Escape implements Environment
      *
      * @return string
      */
-    public function escapeHtml($string = '')
+    public function escapeHtml(string $string = ''): string
     {
         $escape = new Escaper('utf-8');
 
@@ -354,7 +354,7 @@ class Escape implements Environment
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/21/2021 00:05
      */
-    public function htmlEscape($string = '')
+    public function htmlEscape(string $string = ''): string
     {
         $escape = new Escaper('utf-8');
 
@@ -371,7 +371,7 @@ class Escape implements Environment
      *
      * @return string
      */
-    public function escapeHtmlAttribute($string = '')
+    public function escapeHtmlAttribute(string $string = ''): string
     {
         $escape = new Escaper('utf-8');
 
@@ -388,7 +388,7 @@ class Escape implements Environment
      *
      * @return string
      */
-    public function escapeJs($string = '')
+    public function escapeJs(string $string = ''): string
     {
         $escape = new Escaper('utf-8');
 
@@ -405,7 +405,7 @@ class Escape implements Environment
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/20/2021 58:14
      */
-    public function escapeCss($string = '')
+    public function escapeCss(string $string = ''): string
     {
         $escape = new Escaper('utf-8');
 
@@ -422,7 +422,7 @@ class Escape implements Environment
      *
      * @return string
      */
-    public function escapeUrl($string = '')
+    public function escapeUrl(string $string = ''): string
     {
         $escape = new Escaper('utf-8');
 
@@ -440,7 +440,7 @@ class Escape implements Environment
      *
      * @return    string
      */
-    public function removeInvisibleCharacters($str, $urlEncoded = true)
+    public function removeInvisibleCharacters($str, $urlEncoded = true): string
     {
         $nonDisplay = array();
         // every control character except newline (dec 10),
@@ -486,7 +486,7 @@ class Escape implements Environment
      *
      * @return    array|bool|string|string[]|null
      */
-    public function xssClean($str, $isImage = false)
+    public function xssClean($str, bool $isImage = false)
     {
         // Is the string an array?
         if (is_array($str)) {
@@ -705,7 +705,7 @@ class Escape implements Environment
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/23/2021 11:59
      */
-    protected function _doNeverAllowed($str)
+    protected function _doNeverAllowed($str): string
     {
         $str = str_replace(array_keys($this->neverAllowedStr), $this->neverAllowedStr, $str);
 
@@ -774,7 +774,7 @@ class Escape implements Environment
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/23/2021 11:22
      */
-    protected function _compactExplodedWords($matches)
+    protected function _compactExplodedWords($matches): string
     {
         return preg_replace('/\s+/s', '', $matches[1]) . $matches[2];
     }
@@ -789,7 +789,7 @@ class Escape implements Environment
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/23/2021 10:58
      */
-    protected function _sanitizeNaughtyHtml($matches)
+    protected function _sanitizeNaughtyHtml($matches): string
     {
         static $naughty_tags = array(
             'alert', 'area', 'prompt', 'confirm', 'applet', 'audio', 'basefont', 'base', 'behavior', 'bgsound',
@@ -946,7 +946,7 @@ class Escape implements Environment
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/23/2021 09:26
      */
-    protected function _filterAttributes($str)
+    protected function _filterAttributes($str): string
     {
         $out = '';
         if (preg_match_all('#\s*[a-z\-]+\s*=\s*(\042|\047)([^\\1]*?)\\1#is', $str, $matches)) {
