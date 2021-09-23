@@ -19,5 +19,16 @@ namespace nguyenanhung\Libraries\Escape;
  */
 trait Version
 {
-
+    /**
+     * Function getVersion
+     *
+     * @return string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 09/23/2021 35:58
+     */
+    public function getVersion()
+    {
+        return self::VERSION;
+    }
 }

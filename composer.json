@@ -22,6 +22,7 @@
         "php": ">=5.6",
         "ext-curl": "*",
         "ext-json": "*",
+        "ext-ctype": "*",
         "laminas/laminas-escaper": "^2"
     },
     "autoload": {

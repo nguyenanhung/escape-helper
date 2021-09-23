@@ -7,3 +7,4 @@
  * Date: 09/20/2021
  * Time: 23:57
  */
+require_once __DIR__ . '/../vendor/autoload.php';

@@ -46,6 +46,8 @@
  * @link           https://codeigniter.com/user_guide/helpers/security_helper.html
  */
 
+use nguyenanhung\Libraries\Escape\Escape;
+
 if (!function_exists('do_hash')) {
     /**
      * Hash encode a string
@@ -60,15 +62,9 @@ if (!function_exists('do_hash')) {
      */
     function do_hash($str, $type = 'sha1')
     {
-        if (!in_array(strtolower($type), hash_algos(), true)) {
-            $type = 'md5';
-        }
-
-        return hash($type, $str);
+        return (new Escape())->doHash($str, $type);
     }
 }
-
-
 if (!function_exists('encode_php_tags')) {
     /**
      * Convert PHP tags to entities
@@ -79,6 +75,33 @@ if (!function_exists('encode_php_tags')) {
      */
     function encode_php_tags($str)
     {
-        return str_replace(array('<?', '?>'), array('&lt;?', '?&gt;'), $str);
+        return (new Escape())->encodePhpTags($str);
+    }
+}
+if (!function_exists('strip_image_tags')) {
+    /**
+     * Strip Image Tags
+     *
+     * @param string
+     *
+     * @return    string
+     */
+    function strip_image_tags($str)
+    {
+        return (new Escape())->stripImageTags($str);
+    }
+}
+if (!function_exists('sanitize_filename')) {
+    /**
+     * Sanitize Filename
+     *
+     * @param string $str           Input file name
+     * @param bool   $relative_path Whether to preserve paths
+     *
+     * @return    string
+     */
+    function sanitize_filename($str, $relative_path = false)
+    {
+        return (new Escape())->sanitizeFilename($str, $relative_path);
     }
 }

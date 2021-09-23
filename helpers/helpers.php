@@ -8,8 +8,28 @@
  * Time: 23:57
  */
 
-use Laminas\Escaper\Escaper;
+use nguyenanhung\Libraries\Escape\Escape;
 
+if (!function_exists('is_php')) {
+    /**
+     * Determines if the current version of PHP is equal to or greater than the supplied value
+     *
+     * @param string
+     *
+     * @return    bool    TRUE if the current version is $version or higher
+     */
+    function is_php($version)
+    {
+        static $_is_php;
+        $version = (string) $version;
+
+        if (!isset($_is_php[$version])) {
+            $_is_php[$version] = version_compare(PHP_VERSION, $version, '>=');
+        }
+
+        return $_is_php[$version];
+    }
+}
 if (!function_exists('escapeHtml')) {
     /**
      * Function escapeHtml
@@ -23,9 +43,7 @@ if (!function_exists('escapeHtml')) {
      */
     function escapeHtml($string = '')
     {
-        $escape = new Escaper('utf-8');
-
-        return $escape->escapeHtml($string);
+        return (new Escape())->escapeHtml($string);
     }
 }
 if (!function_exists('htmlEscape')) {
@@ -41,9 +59,7 @@ if (!function_exists('htmlEscape')) {
      */
     function htmlEscape($string = '')
     {
-        $escape = new Escaper('utf-8');
-
-        return $escape->escapeHtml($string);
+        return (new Escape())->escapeHtml($string);
     }
 }
 if (!function_exists('escapeHtmlAttr')) {
@@ -59,9 +75,23 @@ if (!function_exists('escapeHtmlAttr')) {
      */
     function escapeHtmlAttr($string = '')
     {
-        $escape = new Escaper('utf-8');
-
-        return $escape->escapeHtmlAttr($string);
+        return (new Escape())->escapeHtmlAttribute($string);
+    }
+}
+if (!function_exists('escapeHtmlAttribute')) {
+    /**
+     * Function escapeHtmlAttribute
+     *
+     * @param string $string
+     *
+     * @return string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 09/23/2021 44:34
+     */
+    function escapeHtmlAttribute($string = '')
+    {
+        return (new Escape())->escapeHtmlAttribute($string);
     }
 }
 if (!function_exists('escapeJs')) {
@@ -77,9 +107,7 @@ if (!function_exists('escapeJs')) {
      */
     function escapeJs($string = '')
     {
-        $escape = new Escaper('utf-8');
-
-        return $escape->escapeJs($string);
+        return (new Escape())->escapeJs($string);
     }
 }
 if (!function_exists('escapeCss')) {
@@ -95,9 +123,7 @@ if (!function_exists('escapeCss')) {
      */
     function escapeCss($string = '')
     {
-        $escape = new Escaper('utf-8');
-
-        return $escape->escapeCss($string);
+        return (new Escape())->escapeCss($string);
     }
 }
 if (!function_exists('escapeUrl')) {
@@ -113,9 +139,7 @@ if (!function_exists('escapeUrl')) {
      */
     function escapeUrl($string = '')
     {
-        $escape = new Escaper('utf-8');
-
-        return $escape->escapeUrl($string);
+        return (new Escape())->escapeUrl($string);
     }
 }
 if (!function_exists('removeInvisibleCharacters')) {
@@ -130,23 +154,9 @@ if (!function_exists('removeInvisibleCharacters')) {
      *
      * @return    string
      */
-    function removeInvisibleCharacters($str, $url_encoded = true)
+    function removeInvisibleCharacters($str, $urlEncoded = true)
     {
-        $nonDisplay = array();
-        // every control character except newline (dec 10),
-        // carriage return (dec 13) and horizontal tab (dec 09)
-        if ($url_encoded) {
-            $nonDisplay[] = '/%0[0-8bcef]/i';    // url encoded 00-08, 11, 12, 14, 15
-            $nonDisplay[] = '/%1[0-9a-f]/i';    // url encoded 16-31
-            $nonDisplay[] = '/%7f/i';    // url encoded 127
-        }
-        $nonDisplay[] = '/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+/S';    // 00-08, 11, 12, 14-31, 127
-        do {
-            $str = preg_replace($nonDisplay, '', $str, -1, $count);
-        }
-        while ($count);
-
-        return $str;
+        return (new Escape())->removeInvisibleCharacters($str, $urlEncoded);
     }
 }
 if (!function_exists('escape_html')) {
@@ -162,9 +172,7 @@ if (!function_exists('escape_html')) {
      */
     function escape_html($string)
     {
-        $escape = new Escaper('utf-8');
-
-        return $escape->escapeHtml($string);
+        return (new Escape())->escapeHtml($string);
     }
 }
 if (!function_exists('escape_html_attribute')) {
@@ -180,9 +188,7 @@ if (!function_exists('escape_html_attribute')) {
      */
     function escape_html_attribute($string)
     {
-        $escape = new Escaper('utf-8');
-
-        return $escape->escapeHtmlAttr($string);
+        return (new Escape())->escapeHtmlAttribute($string);
     }
 }
 if (!function_exists('escape_js')) {
@@ -198,9 +204,7 @@ if (!function_exists('escape_js')) {
      */
     function escape_js($string)
     {
-        $escape = new Escaper('utf-8');
-
-        return $escape->escapeJs($string);
+        return (new Escape())->escapeJs($string);
     }
 }
 if (!function_exists('escape_css')) {
@@ -216,9 +220,7 @@ if (!function_exists('escape_css')) {
      */
     function escape_css($string)
     {
-        $escape = new Escaper('utf-8');
-
-        return $escape->escapeCss($string);
+        return (new Escape())->escapeCss($string);
     }
 }
 if (!function_exists('escape_url')) {
@@ -234,9 +236,7 @@ if (!function_exists('escape_url')) {
      */
     function escape_url($string)
     {
-        $escape = new Escaper('utf-8');
-
-        return $escape->escapeUrl($string);
+        return (new Escape())->escapeUrl($string);
     }
 }
 if (!function_exists('remove_invisible_characters')) {
@@ -251,22 +251,43 @@ if (!function_exists('remove_invisible_characters')) {
      *
      * @return    string
      */
-    function remove_invisible_characters($str, $url_encoded = true)
+    function remove_invisible_characters($str, $urlEncoded = true)
     {
-        $nonDisplay = array();
-        // every control character except newline (dec 10),
-        // carriage return (dec 13) and horizontal tab (dec 09)
-        if ($url_encoded) {
-            $nonDisplay[] = '/%0[0-8bcef]/i';    // url encoded 00-08, 11, 12, 14, 15
-            $nonDisplay[] = '/%1[0-9a-f]/i';    // url encoded 16-31
-            $nonDisplay[] = '/%7f/i';    // url encoded 127
-        }
-        $nonDisplay[] = '/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+/S';    // 00-08, 11, 12, 14-31, 127
-        do {
-            $str = preg_replace($nonDisplay, '', $str, -1, $count);
-        }
-        while ($count);
-
-        return $str;
+        return (new Escape())->removeInvisibleCharacters($str, $urlEncoded);
     }
 }
+if (!function_exists('_xss_clean_')) {
+    /**
+     * XSS Clean
+     *
+     * Sanitizes data so that Cross Site Scripting Hacks can be
+     * prevented.  This method does a fair amount of work but
+     * it is extremely thorough, designed to prevent even the
+     * most obscure XSS attempts.  Nothing is ever 100% foolproof,
+     * of course, but I haven't been able to get anything passed
+     * the filter.
+     *
+     * Note: Should only be used to deal with data upon submission.
+     *     It's not something that should be used for general
+     *     runtime processing.
+     *
+     * @link    http://channel.bitflux.ch/wiki/XSS_Prevention
+     *        Based in part on some code and ideas from Bitflux.
+     *
+     * @link    http://ha.ckers.org/xss.html
+     *        To help develop this script I used this great list of
+     *        vulnerabilities along with a few other hacks I've
+     *        harvested from examining vulnerabilities in other programs.
+     *
+     * @param string|string[] $str     Input data
+     * @param bool            $isImage Whether the input is an image
+     *
+     * @return    array|bool|string|string[]|null
+     */
+    function _xss_clean_($str, $isImage = false)
+    {
+        return (new Escape())->xssClean($str, $isImage);
+    }
+}
+
+
