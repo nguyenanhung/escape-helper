@@ -18,7 +18,7 @@ if (!function_exists('is_php')) {
      *
      * @return    bool    TRUE if the current version is $version or higher
      */
-    function is_php($version)
+    function is_php($version): bool
     {
         static $_is_php;
         $version = (string) $version;
@@ -41,7 +41,7 @@ if (!function_exists('escapeHtml')) {
      *
      * @return string
      */
-    function escapeHtml($string = '')
+    function escapeHtml(string $string = ''): string
     {
         return (new Escape())->escapeHtml($string);
     }
@@ -57,7 +57,7 @@ if (!function_exists('htmlEscape')) {
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/21/2021 00:05
      */
-    function htmlEscape($string = '')
+    function htmlEscape(string $string = ''): string
     {
         return (new Escape())->escapeHtml($string);
     }
@@ -73,7 +73,7 @@ if (!function_exists('escapeHtmlAttr')) {
      *
      * @return string
      */
-    function escapeHtmlAttr($string = '')
+    function escapeHtmlAttr(string $string = ''): string
     {
         return (new Escape())->escapeHtmlAttribute($string);
     }
@@ -89,7 +89,7 @@ if (!function_exists('escapeHtmlAttribute')) {
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/23/2021 44:34
      */
-    function escapeHtmlAttribute($string = '')
+    function escapeHtmlAttribute(string $string = ''): string
     {
         return (new Escape())->escapeHtmlAttribute($string);
     }
@@ -105,7 +105,7 @@ if (!function_exists('escapeJs')) {
      *
      * @return string
      */
-    function escapeJs($string = '')
+    function escapeJs(string $string = ''): string
     {
         return (new Escape())->escapeJs($string);
     }
@@ -121,7 +121,7 @@ if (!function_exists('escapeCss')) {
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/20/2021 58:14
      */
-    function escapeCss($string = '')
+    function escapeCss(string $string = ''): string
     {
         return (new Escape())->escapeCss($string);
     }
@@ -137,7 +137,7 @@ if (!function_exists('escapeUrl')) {
      *
      * @return string
      */
-    function escapeUrl($string = '')
+    function escapeUrl(string $string = ''): string
     {
         return (new Escape())->escapeUrl($string);
     }
@@ -154,7 +154,7 @@ if (!function_exists('removeInvisibleCharacters')) {
      *
      * @return    string
      */
-    function removeInvisibleCharacters($str, $urlEncoded = true)
+    function removeInvisibleCharacters($str, $urlEncoded = true): string
     {
         return (new Escape())->removeInvisibleCharacters($str, $urlEncoded);
     }
@@ -170,7 +170,7 @@ if (!function_exists('escape_html')) {
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 05/25/2021 58:03
      */
-    function escape_html($string)
+    function escape_html($string): string
     {
         return (new Escape())->escapeHtml($string);
     }
@@ -186,7 +186,7 @@ if (!function_exists('escape_html_attribute')) {
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 05/25/2021 58:41
      */
-    function escape_html_attribute($string)
+    function escape_html_attribute($string): string
     {
         return (new Escape())->escapeHtmlAttribute($string);
     }
@@ -202,7 +202,7 @@ if (!function_exists('escape_js')) {
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 05/25/2021 59:04
      */
-    function escape_js($string)
+    function escape_js($string): string
     {
         return (new Escape())->escapeJs($string);
     }
@@ -218,7 +218,7 @@ if (!function_exists('escape_css')) {
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 05/25/2021 59:24
      */
-    function escape_css($string)
+    function escape_css($string): string
     {
         return (new Escape())->escapeCss($string);
     }
@@ -234,7 +234,7 @@ if (!function_exists('escape_url')) {
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 05/25/2021 59:40
      */
-    function escape_url($string)
+    function escape_url($string): string
     {
         return (new Escape())->escapeUrl($string);
     }
@@ -251,7 +251,7 @@ if (!function_exists('remove_invisible_characters')) {
      *
      * @return    string
      */
-    function remove_invisible_characters($str, $urlEncoded = true)
+    function remove_invisible_characters($str, $urlEncoded = true): string
     {
         return (new Escape())->removeInvisibleCharacters($str, $urlEncoded);
     }
@@ -284,7 +284,7 @@ if (!function_exists('_xss_clean_')) {
      *
      * @return    array|bool|string|string[]|null
      */
-    function _xss_clean_($str, $isImage = false)
+    function _xss_clean_($str, bool $isImage = false)
     {
         return (new Escape())->xssClean($str, $isImage);
     }
@@ -301,7 +301,7 @@ if (!function_exists('do_hash')) {
      *
      * @return    string
      */
-    function do_hash($str, $type = 'sha1')
+    function do_hash(string $str, string $type = 'sha1'): string
     {
         return (new Escape())->doHash($str, $type);
     }
@@ -314,7 +314,7 @@ if (!function_exists('encode_php_tags')) {
      *
      * @return    string
      */
-    function encode_php_tags($str)
+    function encode_php_tags($str): string
     {
         return (new Escape())->encodePhpTags($str);
     }
@@ -327,7 +327,7 @@ if (!function_exists('encodePhpTags')) {
      *
      * @return    string
      */
-    function encodePhpTags($str)
+    function encodePhpTags($str): string
     {
         return (new Escape())->encodePhpTags($str);
     }
@@ -340,7 +340,7 @@ if (!function_exists('strip_image_tags')) {
      *
      * @return    string
      */
-    function strip_image_tags($str)
+    function strip_image_tags($str): string
     {
         return (new Escape())->stripImageTags($str);
     }
@@ -353,7 +353,7 @@ if (!function_exists('stripImageTags')) {
      *
      * @return    string
      */
-    function stripImageTags($str)
+    function stripImageTags($str): string
     {
         return (new Escape())->stripImageTags($str);
     }
@@ -367,7 +367,7 @@ if (!function_exists('sanitize_filename')) {
      *
      * @return    string
      */
-    function sanitize_filename($str, $relative_path = false)
+    function sanitize_filename(string $str, bool $relative_path = false): string
     {
         return (new Escape())->sanitizeFilename($str, $relative_path);
     }
@@ -381,7 +381,7 @@ if (!function_exists('sanitizeFilename')) {
      *
      * @return    string
      */
-    function sanitizeFilename($str, $relative_path = false)
+    function sanitizeFilename(string $str, bool $relative_path = false): string
     {
         return (new Escape())->sanitizeFilename($str, $relative_path);
     }
