@@ -14,7 +14,7 @@ if (!function_exists('is_php')) {
     /**
      * Determines if the current version of PHP is equal to or greater than the supplied value
      *
-     * @param string
+     * @param mixed $version
      *
      * @return    bool    TRUE if the current version is $version or higher
      */
@@ -37,11 +37,11 @@ if (!function_exists('escapeHtml')) {
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 2018-12-09 14:24
      *
-     * @param string $string
+     * @param mixed $string
      *
      * @return string
      */
-    function escapeHtml(string $string = ''): string
+    function escapeHtml($string = ''): string
     {
         return (new Escape())->escapeHtml($string);
     }
@@ -50,14 +50,14 @@ if (!function_exists('htmlEscape')) {
     /**
      * Function htmlEscape
      *
-     * @param string $string
+     * @param mixed $string
      *
      * @return string
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/21/2021 00:05
      */
-    function htmlEscape(string $string = ''): string
+    function htmlEscape($string = ''): string
     {
         return (new Escape())->escapeHtml($string);
     }
@@ -69,11 +69,11 @@ if (!function_exists('escapeHtmlAttr')) {
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 2018-12-09 14:24
      *
-     * @param string $string
+     * @param mixed $string
      *
      * @return string
      */
-    function escapeHtmlAttr(string $string = ''): string
+    function escapeHtmlAttr($string = ''): string
     {
         return (new Escape())->escapeHtmlAttribute($string);
     }
@@ -82,14 +82,14 @@ if (!function_exists('escapeHtmlAttribute')) {
     /**
      * Function escapeHtmlAttribute
      *
-     * @param string $string
+     * @param mixed $string
      *
      * @return string
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/23/2021 44:34
      */
-    function escapeHtmlAttribute(string $string = ''): string
+    function escapeHtmlAttribute($string = ''): string
     {
         return (new Escape())->escapeHtmlAttribute($string);
     }
@@ -101,11 +101,11 @@ if (!function_exists('escapeJs')) {
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 2018-12-09 14:25
      *
-     * @param string $string
+     * @param mixed $string
      *
      * @return string
      */
-    function escapeJs(string $string = ''): string
+    function escapeJs($string = ''): string
     {
         return (new Escape())->escapeJs($string);
     }
@@ -114,14 +114,14 @@ if (!function_exists('escapeCss')) {
     /**
      * Function escapeCss
      *
-     * @param string $string
+     * @param mixed $string
      *
      * @return string
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/20/2021 58:14
      */
-    function escapeCss(string $string = ''): string
+    function escapeCss($string = ''): string
     {
         return (new Escape())->escapeCss($string);
     }
@@ -133,11 +133,11 @@ if (!function_exists('escapeUrl')) {
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 2018-12-09 14:25
      *
-     * @param string $string
+     * @param mixed $string
      *
      * @return string
      */
-    function escapeUrl(string $string = ''): string
+    function escapeUrl($string = ''): string
     {
         return (new Escape())->escapeUrl($string);
     }
@@ -149,12 +149,12 @@ if (!function_exists('removeInvisibleCharacters')) {
      * This prevents sandwiching null characters
      * between ascii characters, like Java\0script.
      *
-     * @param string
-     * @param bool
+     * @param mixed $str
+     * @param bool  $urlEncoded
      *
      * @return    string
      */
-    function removeInvisibleCharacters($str, $urlEncoded = true): string
+    function removeInvisibleCharacters($str, bool $urlEncoded = true): string
     {
         return (new Escape())->removeInvisibleCharacters($str, $urlEncoded);
     }
@@ -246,12 +246,12 @@ if (!function_exists('remove_invisible_characters')) {
      * This prevents sandwiching null characters
      * between ascii characters, like Java\0script.
      *
-     * @param string
-     * @param bool
+     * @param mixed $str
+     * @param bool  $urlEncoded
      *
      * @return    string
      */
-    function remove_invisible_characters($str, $urlEncoded = true): string
+    function remove_invisible_characters($str, bool $urlEncoded = true): string
     {
         return (new Escape())->removeInvisibleCharacters($str, $urlEncoded);
     }
@@ -310,9 +310,9 @@ if (!function_exists('encode_php_tags')) {
     /**
      * Convert PHP tags to entities
      *
-     * @param string
+     * @param string|string[] $str
      *
-     * @return    string
+     * @return    string|string[]
      */
     function encode_php_tags($str): string
     {
@@ -323,9 +323,9 @@ if (!function_exists('encodePhpTags')) {
     /**
      * Convert PHP tags to entities
      *
-     * @param string
+     * @param string|string[] $str
      *
-     * @return    string
+     * @return    string|string[]
      */
     function encodePhpTags($str): string
     {
@@ -336,9 +336,9 @@ if (!function_exists('strip_image_tags')) {
     /**
      * Strip Image Tags
      *
-     * @param string
+     * @param string|string[]|null $str
      *
-     * @return    string
+     * @return    string|string[]|null
      */
     function strip_image_tags($str): string
     {
@@ -349,9 +349,9 @@ if (!function_exists('stripImageTags')) {
     /**
      * Strip Image Tags
      *
-     * @param string
+     * @param string|string[]|null $str
      *
-     * @return    string
+     * @return    string|string[]|null
      */
     function stripImageTags($str): string
     {
@@ -362,12 +362,12 @@ if (!function_exists('sanitize_filename')) {
     /**
      * Sanitize Filename
      *
-     * @param string $str           Input file name
-     * @param bool   $relative_path Whether to preserve paths
+     * @param mixed $str           Input file name
+     * @param bool  $relative_path Whether to preserve paths
      *
      * @return    string
      */
-    function sanitize_filename(string $str, bool $relative_path = false): string
+    function sanitize_filename($str, bool $relative_path = false): string
     {
         return (new Escape())->sanitizeFilename($str, $relative_path);
     }
@@ -376,12 +376,12 @@ if (!function_exists('sanitizeFilename')) {
     /**
      * Sanitize Filename
      *
-     * @param string $str           Input file name
-     * @param bool   $relative_path Whether to preserve paths
+     * @param mixed $str           Input file name
+     * @param bool  $relative_path Whether to preserve paths
      *
      * @return    string
      */
-    function sanitizeFilename(string $str, bool $relative_path = false): string
+    function sanitizeFilename($str, bool $relative_path = false): string
     {
         return (new Escape())->sanitizeFilename($str, $relative_path);
     }
