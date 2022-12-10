@@ -47,61 +47,96 @@ class Escape implements Environment
      *
      * @var    array
      */
-    protected $filenameBadChars = array(
-        '../', '<!--', '-->', '<', '>',
-        "'", '"', '&', '$', '#',
-        '{', '}', '[', ']', '=',
-        ';', '?', '%20', '%22',
-        '%3c',        // <
-        '%253c',    // <
-        '%3e',        // >
-        '%0e',        // >
-        '%28',        // (
-        '%29',        // )
-        '%2528',    // (
-        '%26',        // &
-        '%24',        // $
-        '%3f',        // ?
-        '%3b',        // ;
-        '%3d'        // =
-    );
+    protected $filenameBadChars
+        = array(
+            '../',
+            '<!--',
+            '-->',
+            '<',
+            '>',
+            "'",
+            '"',
+            '&',
+            '$',
+            '#',
+            '{',
+            '}',
+            '[',
+            ']',
+            '=',
+            ';',
+            '?',
+            '%20',
+            '%22',
+            '%3c',
+            // <
+            '%253c',
+            // <
+            '%3e',
+            // >
+            '%0e',
+            // >
+            '%28',
+            // (
+            '%29',
+            // )
+            '%2528',
+            // (
+            '%26',
+            // &
+            '%24',
+            // $
+            '%3f',
+            // ?
+            '%3b',
+            // ;
+            '%3d'
+            // =
+        );
 
     /**
      * List of never allowed strings
      *
      * @var    array
      */
-    protected $neverAllowedStr = array(
-        'document.cookie'   => '[removed]',
-        '(document).cookie' => '[removed]',
-        'document.write'    => '[removed]',
-        '(document).write'  => '[removed]',
-        '.parentNode'       => '[removed]',
-        '.innerHTML'        => '[removed]',
-        '-moz-binding'      => '[removed]',
-        '<!--'              => '&lt;!--',
-        '-->'               => '--&gt;',
-        '<![CDATA['         => '&lt;![CDATA[',
-        '<comment>'         => '&lt;comment&gt;',
-        '<%'                => '&lt;&#37;'
-    );
+    protected $neverAllowedStr
+        = array(
+            'document.cookie'   => '[removed]',
+            '(document).cookie' => '[removed]',
+            'document.write'    => '[removed]',
+            '(document).write'  => '[removed]',
+            '.parentNode'       => '[removed]',
+            '.innerHTML'        => '[removed]',
+            '-moz-binding'      => '[removed]',
+            '<!--'              => '&lt;!--',
+            '-->'               => '--&gt;',
+            '<![CDATA['         => '&lt;![CDATA[',
+            '<comment>'         => '&lt;comment&gt;',
+            '<%'                => '&lt;&#37;'
+        );
 
     /**
      * List of never allowed regex replacements
      *
      * @var    array
      */
-    protected $neverAllowedStrRegex = array(
-        'javascript\s*:',
-        '(\(?document\)?|\(?window\)?(\.document)?)\.(location|on\w*)',
-        'expression\s*(\(|&\#40;)', // CSS and IE
-        'vbscript\s*:', // IE, surprise!
-        'wscript\s*:', // IE
-        'jscript\s*:', // IE
-        'vbs\s*:', // IE
-        'Redirect\s+30\d',
-        "([\"'])?data\s*:[^\\1]*?base64[^\\1]*?,[^\\1]*?\\1?"
-    );
+    protected $neverAllowedStrRegex
+        = array(
+            'javascript\s*:',
+            '(\(?document\)?|\(?window\)?(\.document)?)\.(location|on\w*)',
+            'expression\s*(\(|&\#40;)',
+            // CSS and IE
+            'vbscript\s*:',
+            // IE, surprise!
+            'wscript\s*:',
+            // IE
+            'jscript\s*:',
+            // IE
+            'vbs\s*:',
+            // IE
+            'Redirect\s+30\d',
+            "([\"'])?data\s*:[^\\1]*?base64[^\\1]*?,[^\\1]*?\\1?"
+        );
 
     /**
      * Function xss_hash - Generates the XSS hash if needed and returns it.
@@ -114,10 +149,8 @@ class Escape implements Environment
     public function xssHash()
     {
         if ($this->_xssHash === null) {
-            $rand           = $this->getRandomBytes(16);
-            $this->_xssHash = ($rand === false)
-                ? md5(uniqid(mt_rand(), true))
-                : bin2hex($rand);
+            $rand = $this->getRandomBytes(16);
+            $this->_xssHash = ($rand === false) ? md5(uniqid(mt_rand(), true)) : bin2hex($rand);
         }
 
         return $this->_xssHash;
@@ -201,9 +234,7 @@ class Escape implements Environment
         static $_entities;
 
         isset($charset) || $charset = $this->charset;
-        $flag = is_php('5.4')
-            ? ENT_COMPAT | ENT_HTML5
-            : ENT_COMPAT;
+        $flag = is_php('5.4') ? ENT_COMPAT | ENT_HTML5 : ENT_COMPAT;
 
         if (!isset($_entities)) {
             $_entities = array_map('strtolower', get_html_translation_table(HTML_ENTITIES, $flag, $charset));
@@ -211,9 +242,9 @@ class Escape implements Environment
             // If we're not on PHP 5.4+, add the possibly dangerous HTML 5
             // entities to the array manually
             if ($flag === ENT_COMPAT) {
-                $_entities[':']  = '&colon;';
-                $_entities['(']  = '&lpar;';
-                $_entities[')']  = '&rpar;';
+                $_entities[':'] = '&colon;';
+                $_entities['('] = '&lpar;';
+                $_entities[')'] = '&rpar;';
                 $_entities["\n"] = '&NewLine;';
                 $_entities["\t"] = '&Tab;';
             }
@@ -236,11 +267,7 @@ class Escape implements Environment
             }
 
             // Decode numeric & UTF16 two byte entities
-            $str = html_entity_decode(
-                preg_replace('/(&#(?:x0*[0-9a-f]{2,5}(?![0-9a-f;])|(?:0*\d{2,4}(?![0-9;]))))/iS', '$1;', $str),
-                $flag,
-                $charset
-            );
+            $str = html_entity_decode(preg_replace('/(&#(?:x0*[0-9a-f]{2,5}(?![0-9a-f;])|(?:0*\d{2,4}(?![0-9;]))))/iS', '$1;', $str), $flag, $charset);
 
             if ($flag === ENT_COMPAT) {
                 $str = str_replace(array_values($_entities), array_keys($_entities), $str);
@@ -277,7 +304,13 @@ class Escape implements Environment
      */
     public function encodePhpTags($str)
     {
-        return str_replace(array('<?', '?>'), array('&lt;?', '?&gt;'), $str);
+        return str_replace(array(
+                               '<?',
+                               '?>'
+                           ), array(
+                               '&lt;?',
+                               '?&gt;'
+                           ), $str);
     }
 
     /**
@@ -289,14 +322,10 @@ class Escape implements Environment
      */
     public function stripImageTags($str)
     {
-        return preg_replace(
-            array(
-                '#<img[\s/]+.*?src\s*=\s*(["\'])([^\\1]+?)\\1.*?\>#i',
-                '#<img[\s/]+.*?src\s*=\s*?(([^\s"\'=<>`]+)).*?\>#i'
-            ),
-            '\\2',
-            $str
-        );
+        return preg_replace(array(
+                                '#<img[\s/]+.*?src\s*=\s*(["\'])([^\\1]+?)\\1.*?\>#i',
+                                '#<img[\s/]+.*?src\s*=\s*?(([^\s"\'=<>`]+)).*?\>#i'
+                            ), '\\2', $str);
     }
 
     /**
@@ -333,7 +362,7 @@ class Escape implements Environment
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 2018-12-09 14:24
      *
-     * @param string $string
+     * @param mixed $string
      *
      * @return string
      */
@@ -347,7 +376,7 @@ class Escape implements Environment
     /**
      * Function htmlEscape
      *
-     * @param string $string
+     * @param mixed $string
      *
      * @return string
      * @author   : 713uk13m <dev@nguyenanhung.com>
@@ -356,9 +385,7 @@ class Escape implements Environment
      */
     public function htmlEscape($string = '')
     {
-        $escape = new Escaper('utf-8');
-
-        return $escape->escapeHtml($string);
+        return $this->escapeHtml($string);
     }
 
     /**
@@ -367,7 +394,7 @@ class Escape implements Environment
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 2018-12-09 14:24
      *
-     * @param string $string
+     * @param mixed $string
      *
      * @return string
      */
@@ -384,7 +411,7 @@ class Escape implements Environment
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 2018-12-09 14:25
      *
-     * @param string $string
+     * @param mixed $string
      *
      * @return string
      */
@@ -398,7 +425,7 @@ class Escape implements Environment
     /**
      * Function escapeCss
      *
-     * @param string $string
+     * @param mixed $string
      *
      * @return string
      * @author   : 713uk13m <dev@nguyenanhung.com>
@@ -418,7 +445,7 @@ class Escape implements Environment
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 2018-12-09 14:25
      *
-     * @param string $string
+     * @param mixed $string
      *
      * @return string
      */
@@ -435,8 +462,8 @@ class Escape implements Environment
      * This prevents sandwiching null characters
      * between ascii characters, like Java\0script.
      *
-     * @param string
-     * @param bool
+     * @param mixed $str
+     * @param bool  $urlEncoded
      *
      * @return    string
      */
@@ -512,8 +539,11 @@ class Escape implements Environment
         if (strpos($str, '%') !== false) {
             do {
                 $oldStr = $str;
-                $str    = rawurldecode($str);
-                $str    = preg_replace_callback('#%(?:\s*[0-9a-f]){2,}#i', array($this, '_urlDecodeSpaces'), $str);
+                $str = rawurldecode($str);
+                $str = preg_replace_callback('#%(?:\s*[0-9a-f]){2,}#i', array(
+                    $this,
+                    '_urlDecodeSpaces'
+                ),                           $str);
             }
             while ($oldStr !== $str);
             unset($oldStr);
@@ -526,8 +556,14 @@ class Escape implements Environment
          * We only convert entities that are within tags since
          * these are the ones that will pose security problems.
          */
-        $str = preg_replace_callback("/[^a-z0-9>]+[a-z0-9]+=([\'\"]).*?\\1/si", array($this, '_convertAttribute'), $str);
-        $str = preg_replace_callback('/<\w+.*/si', array($this, '_decodeEntity'), $str);
+        $str = preg_replace_callback("/[^a-z0-9>]+[a-z0-9]+=([\'\"]).*?\\1/si", array(
+            $this,
+            '_convertAttribute'
+        ),                           $str);
+        $str = preg_replace_callback('/<\w+.*/si', array(
+            $this,
+            '_decodeEntity'
+        ),                           $str);
 
         // Remove Invisible Characters Again!
         $str = remove_invisible_characters($str);
@@ -563,7 +599,13 @@ class Escape implements Environment
             // do the long opening tags.
             $str = preg_replace('/<\?(php)/i', '&lt;?\\1', $str);
         } else {
-            $str = str_replace(array('<?', '?' . '>'), array('&lt;?', '?&gt;'), $str);
+            $str = str_replace(array(
+                                   '<?',
+                                   '?' . '>'
+                               ), array(
+                                   '&lt;?',
+                                   '?&gt;'
+                               ), $str);
         }
 
         /*
@@ -573,9 +615,23 @@ class Escape implements Environment
          * These words are compacted back to their correct state.
          */
         $words = array(
-            'javascript', 'expression', 'vbscript', 'jscript', 'wscript',
-            'vbs', 'script', 'base64', 'applet', 'alert', 'document',
-            'write', 'cookie', 'window', 'confirm', 'prompt', 'eval'
+            'javascript',
+            'expression',
+            'vbscript',
+            'jscript',
+            'wscript',
+            'vbs',
+            'script',
+            'base64',
+            'applet',
+            'alert',
+            'document',
+            'write',
+            'cookie',
+            'window',
+            'confirm',
+            'prompt',
+            'eval'
         );
 
         foreach ($words as $word) {
@@ -583,7 +639,10 @@ class Escape implements Environment
 
             // We only want to do this when it is followed by a non-word character
             // That way valid stuff like "dealer to" does not become "dealerto"
-            $str = preg_replace_callback('#(' . substr($word, 0, -3) . ')(\W)#is', array($this, '_compactExplodedWords'), $str);
+            $str = preg_replace_callback('#(' . substr($word, 0, -3) . ')(\W)#is', array(
+                $this,
+                '_compactExplodedWords'
+            ),                           $str);
         }
 
         /*
@@ -602,11 +661,17 @@ class Escape implements Environment
             $original = $str;
 
             if (preg_match('/<a/i', $str)) {
-                $str = preg_replace_callback('#<a(?:rea)?[^a-z0-9>]+([^>]*?)(?:>|$)#si', array($this, '_jsLinkRemoval'), $str);
+                $str = preg_replace_callback('#<a(?:rea)?[^a-z0-9>]+([^>]*?)(?:>|$)#si', array(
+                    $this,
+                    '_jsLinkRemoval'
+                ),                           $str);
             }
 
             if (preg_match('/<img/i', $str)) {
-                $str = preg_replace_callback('#<img[^a-z0-9]+([^>]*?)(?:\s?/?>|$)#si', array($this, '_jsImgRemoval'), $str);
+                $str = preg_replace_callback('#<img[^a-z0-9]+([^>]*?)(?:\s?/?>|$)#si', array(
+                    $this,
+                    '_jsImgRemoval'
+                ),                           $str);
             }
 
             if (preg_match('/script|xss/i', $str)) {
@@ -625,8 +690,7 @@ class Escape implements Environment
          * So this: <blink>
          * Becomes: &lt;blink&gt;
          */
-        $pattern = '#'
-                   . '<((?<slash>/*\s*)((?<tagName>[a-z0-9]+)(?=[^a-z0-9]|$)|.+)' // tag start and name, followed by a non-tag character
+        $pattern = '#' . '<((?<slash>/*\s*)((?<tagName>[a-z0-9]+)(?=[^a-z0-9]|$)|.+)' // tag start and name, followed by a non-tag character
                    . '[^\s\042\047a-z0-9>/=]*' // a valid attribute character immediately after the tag would count as a separator
                    // optional attributes
                    . '(?<attributes>(?:[\s\042\047/=]*' // non-attribute characters, excluding > (tag close) for obvious reasons
@@ -643,7 +707,10 @@ class Escape implements Environment
         //       false positives and in turn - vulnerabilities!
         do {
             $old_str = $str;
-            $str     = preg_replace_callback($pattern, array($this, '_sanitizeNaughtyHtml'), $str);
+            $str = preg_replace_callback($pattern, array(
+                $this,
+                '_sanitizeNaughtyHtml'
+            ),                           $str);
         }
         while ($old_str !== $str);
         unset($old_str);
@@ -660,19 +727,11 @@ class Escape implements Environment
          * For example:	eval('some code')
          * Becomes:	eval&#40;'some code'&#41;
          */
-        $str = preg_replace(
-            '#(alert|prompt|confirm|cmd|passthru|eval|exec|expression|system|fopen|fsockopen|file|file_get_contents|readfile|unlink)(\s*)\((.*?)\)#si',
-            '\\1\\2&#40;\\3&#41;',
-            $str
-        );
+        $str = preg_replace('#(alert|prompt|confirm|cmd|passthru|eval|exec|expression|system|fopen|fsockopen|file|file_get_contents|readfile|unlink)(\s*)\((.*?)\)#si', '\\1\\2&#40;\\3&#41;', $str);
 
         // Same thing, but for "tag functions" (e.g. eval`some code`)
         // See https://github.com/bcit-ci/CodeIgniter/issues/5420
-        $str = preg_replace(
-            '#(alert|prompt|confirm|cmd|passthru|eval|exec|expression|system|fopen|fsockopen|file|file_get_contents|readfile|unlink)(\s*)`(.*?)`#si',
-            '\\1\\2&#96;\\3&#96;',
-            $str
-        );
+        $str = preg_replace('#(alert|prompt|confirm|cmd|passthru|eval|exec|expression|system|fopen|fsockopen|file|file_get_contents|readfile|unlink)(\s*)`(.*?)`#si', '\\1\\2&#96;\\3&#96;', $str);
 
         // Final clean up
         // This adds a bit of extra precaution in case
@@ -733,11 +792,7 @@ class Escape implements Environment
         $match = preg_replace('|\&([a-z\_0-9\-]+)\=([a-z\_0-9\-/]+)|i', $this->xssHash() . '\\1=\\2', $match[0]);
 
         // Decode, then un-protect URL GET vars
-        return str_replace(
-            $this->xssHash(),
-            '&',
-            $this->entityDecode($match, $this->charset)
-        );
+        return str_replace($this->xssHash(), '&', $this->entityDecode($match, $this->charset));
     }
 
     /**
@@ -754,12 +809,10 @@ class Escape implements Environment
      */
     protected function _urlDecodeSpaces($matches)
     {
-        $input    = $matches[0];
+        $input = $matches[0];
         $nospaces = preg_replace('#\s+#', '', $input);
 
-        return ($nospaces === $input)
-            ? $input
-            : rawurldecode($nospaces);
+        return ($nospaces === $input) ? $input : rawurldecode($nospaces);
     }
 
     /**
@@ -792,14 +845,57 @@ class Escape implements Environment
     protected function _sanitizeNaughtyHtml($matches)
     {
         static $naughty_tags = array(
-            'alert', 'area', 'prompt', 'confirm', 'applet', 'audio', 'basefont', 'base', 'behavior', 'bgsound',
-            'blink', 'body', 'embed', 'expression', 'form', 'frameset', 'frame', 'head', 'html', 'ilayer',
-            'iframe', 'input', 'button', 'select', 'isindex', 'layer', 'link', 'meta', 'keygen', 'object',
-            'plaintext', 'style', 'script', 'textarea', 'title', 'math', 'video', 'svg', 'xml', 'xss'
+            'alert',
+            'area',
+            'prompt',
+            'confirm',
+            'applet',
+            'audio',
+            'basefont',
+            'base',
+            'behavior',
+            'bgsound',
+            'blink',
+            'body',
+            'embed',
+            'expression',
+            'form',
+            'frameset',
+            'frame',
+            'head',
+            'html',
+            'ilayer',
+            'iframe',
+            'input',
+            'button',
+            'select',
+            'isindex',
+            'layer',
+            'link',
+            'meta',
+            'keygen',
+            'object',
+            'plaintext',
+            'style',
+            'script',
+            'textarea',
+            'title',
+            'math',
+            'video',
+            'svg',
+            'xml',
+            'xss'
         );
 
         static $evil_attributes = array(
-            'on\w+', 'style', 'xmlns', 'formaction', 'form', 'xlink:href', 'FSCommand', 'seekSegmentTime'
+            'on\w+',
+            'style',
+            'xmlns',
+            'formaction',
+            'form',
+            'xlink:href',
+            'FSCommand',
+            'seekSegmentTime'
         );
 
         // First, escape unclosed tags
@@ -816,8 +912,7 @@ class Escape implements Environment
             $attributes = array();
 
             // Attribute-catching pattern
-            $attributes_pattern = '#'
-                                  . '(?<name>[^\s\042\047>/=]+)' // attribute characters
+            $attributes_pattern = '#' . '(?<name>[^\s\042\047>/=]+)' // attribute characters
                                   // optional attribute-value
                                   . '(?:\s*=(?<value>[^\s\042\047=><`]+|\s*\042[^\042]*\042|\s*\047[^\047]*\047|\s*(?U:[^\s\042\047=><`]*)))' // attribute-value separator
                                   . '#i';
@@ -837,12 +932,9 @@ class Escape implements Environment
                     break;
                 }
 
-                if (
-                    // Is it indeed an "evil" attribute?
-                    preg_match($is_evil_pattern, $attribute['name'][0])
-                    // Or does it have an equals sign, but no value and not quoted? Strip that too!
-                    || (trim($attribute['value'][0]) === '')
-                ) {
+                if (// Is it indeed an "evil" attribute?
+                    preg_match($is_evil_pattern, $attribute['name'][0]) // Or does it have an equals sign, but no value and not quoted? Strip that too!
+                    || (trim($attribute['value'][0]) === '')) {
                     $attributes[] = 'xss=removed';
                 } else {
                     $attributes[] = $attribute[0][0];
@@ -852,9 +944,7 @@ class Escape implements Environment
             }
             while ($matches['attributes'] !== '');
 
-            $attributes = empty($attributes)
-                ? ''
-                : ' ' . implode(' ', $attributes);
+            $attributes = empty($attributes) ? '' : ' ' . implode(' ', $attributes);
 
             return '<' . $matches['slash'] . $matches['tagName'] . $attributes . '>';
         } // Is the element that we caught naughty? If so, escape it
@@ -881,15 +971,7 @@ class Escape implements Environment
      */
     protected function _jsLinkRemoval($match)
     {
-        return str_replace(
-            $match[1],
-            preg_replace(
-                '#href=.*?(?:(?:alert|prompt|confirm)(?:\(|&\#40;|`|&\#96;)|javascript:|livescript:|mocha:|charset=|window\.|\(?document\)?\.|\.cookie|<script|<xss|d\s*a\s*t\s*a\s*:)#si',
-                '',
-                $this->_filterAttributes($match[1])
-            ),
-            $match[0]
-        );
+        return str_replace($match[1], preg_replace('#href=.*?(?:(?:alert|prompt|confirm)(?:\(|&\#40;|`|&\#96;)|javascript:|livescript:|mocha:|charset=|window\.|\(?document\)?\.|\.cookie|<script|<xss|d\s*a\s*t\s*a\s*:)#si', '', $this->_filterAttributes($match[1])), $match[0]);
     }
 
     /**
@@ -910,15 +992,7 @@ class Escape implements Environment
      */
     protected function _jsImgRemoval($match)
     {
-        return str_replace(
-            $match[1],
-            preg_replace(
-                '#src=.*?(?:(?:alert|prompt|confirm|eval)(?:\(|&\#40;|`|&\#96;)|javascript:|livescript:|mocha:|charset=|window\.|\(?document\)?\.|\.cookie|<script|<xss|base64\s*,)#si',
-                '',
-                $this->_filterAttributes($match[1])
-            ),
-            $match[0]
-        );
+        return str_replace($match[1], preg_replace('#src=.*?(?:(?:alert|prompt|confirm|eval)(?:\(|&\#40;|`|&\#96;)|javascript:|livescript:|mocha:|charset=|window\.|\(?document\)?\.|\.cookie|<script|<xss|base64\s*,)#si', '', $this->_filterAttributes($match[1])), $match[0]);
     }
 
     /**
@@ -933,7 +1007,15 @@ class Escape implements Environment
      */
     protected function _convertAttribute($match)
     {
-        return str_replace(array('>', '<', '\\'), array('&gt;', '&lt;', '\\\\'), $match[0]);
+        return str_replace(array(
+                               '>',
+                               '<',
+                               '\\'
+                           ), array(
+                               '&gt;',
+                               '&lt;',
+                               '\\\\'
+                           ), $match[0]);
     }
 
     /**

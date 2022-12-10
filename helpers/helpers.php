@@ -37,7 +37,7 @@ if (!function_exists('escapeHtml')) {
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 2018-12-09 14:24
      *
-     * @param string $string
+     * @param mixed $string
      *
      * @return string
      */
@@ -50,7 +50,7 @@ if (!function_exists('htmlEscape')) {
     /**
      * Function htmlEscape
      *
-     * @param string $string
+     * @param mixed $string
      *
      * @return string
      * @author   : 713uk13m <dev@nguyenanhung.com>
@@ -69,7 +69,7 @@ if (!function_exists('escapeHtmlAttr')) {
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 2018-12-09 14:24
      *
-     * @param string $string
+     * @param mixed $string
      *
      * @return string
      */
@@ -82,7 +82,7 @@ if (!function_exists('escapeHtmlAttribute')) {
     /**
      * Function escapeHtmlAttribute
      *
-     * @param string $string
+     * @param mixed $string
      *
      * @return string
      * @author   : 713uk13m <dev@nguyenanhung.com>
@@ -101,7 +101,7 @@ if (!function_exists('escapeJs')) {
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 2018-12-09 14:25
      *
-     * @param string $string
+     * @param mixed $string
      *
      * @return string
      */
@@ -114,7 +114,7 @@ if (!function_exists('escapeCss')) {
     /**
      * Function escapeCss
      *
-     * @param string $string
+     * @param mixed $string
      *
      * @return string
      * @author   : 713uk13m <dev@nguyenanhung.com>
@@ -133,7 +133,7 @@ if (!function_exists('escapeUrl')) {
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 2018-12-09 14:25
      *
-     * @param string $string
+     * @param mixed $string
      *
      * @return string
      */
@@ -149,8 +149,8 @@ if (!function_exists('removeInvisibleCharacters')) {
      * This prevents sandwiching null characters
      * between ascii characters, like Java\0script.
      *
-     * @param string
-     * @param bool
+     * @param mixed $str
+     * @param bool  $urlEncoded
      *
      * @return    string
      */
@@ -246,8 +246,8 @@ if (!function_exists('remove_invisible_characters')) {
      * This prevents sandwiching null characters
      * between ascii characters, like Java\0script.
      *
-     * @param string
-     * @param bool
+     * @param mixed $str
+     * @param bool  $urlEncoded
      *
      * @return    string
      */
@@ -310,7 +310,7 @@ if (!function_exists('encode_php_tags')) {
     /**
      * Convert PHP tags to entities
      *
-     * @param string
+     * @param mixed $str
      *
      * @return    string
      */
@@ -323,7 +323,7 @@ if (!function_exists('encodePhpTags')) {
     /**
      * Convert PHP tags to entities
      *
-     * @param string
+     * @param mixed $str
      *
      * @return    string
      */
@@ -336,7 +336,7 @@ if (!function_exists('strip_image_tags')) {
     /**
      * Strip Image Tags
      *
-     * @param string
+     * @param mixed $str
      *
      * @return    string
      */
@@ -349,7 +349,7 @@ if (!function_exists('stripImageTags')) {
     /**
      * Strip Image Tags
      *
-     * @param string
+     * @param mixed $str
      *
      * @return    string
      */
