@@ -20,9 +20,9 @@ use Laminas\Escaper\Escaper;
  * @author    713uk13m <dev@nguyenanhung.com>
  * @copyright 713uk13m <dev@nguyenanhung.com>
  */
-class Escape implements Environment
+class Escape
 {
-    use Version;
+    const VERSION = '1.0.5';
 
     /**
      * Character set
@@ -47,96 +47,106 @@ class Escape implements Environment
      *
      * @var    array
      */
-    protected $filenameBadChars
-        = array(
-            '../',
-            '<!--',
-            '-->',
-            '<',
-            '>',
-            "'",
-            '"',
-            '&',
-            '$',
-            '#',
-            '{',
-            '}',
-            '[',
-            ']',
-            '=',
-            ';',
-            '?',
-            '%20',
-            '%22',
-            '%3c',
-            // <
-            '%253c',
-            // <
-            '%3e',
-            // >
-            '%0e',
-            // >
-            '%28',
-            // (
-            '%29',
-            // )
-            '%2528',
-            // (
-            '%26',
-            // &
-            '%24',
-            // $
-            '%3f',
-            // ?
-            '%3b',
-            // ;
-            '%3d'
-            // =
-        );
+    protected $filenameBadChars = array(
+        '../',
+        '<!--',
+        '-->',
+        '<',
+        '>',
+        "'",
+        '"',
+        '&',
+        '$',
+        '#',
+        '{',
+        '}',
+        '[',
+        ']',
+        '=',
+        ';',
+        '?',
+        '%20',
+        '%22',
+        '%3c',
+        // <
+        '%253c',
+        // <
+        '%3e',
+        // >
+        '%0e',
+        // >
+        '%28',
+        // (
+        '%29',
+        // )
+        '%2528',
+        // (
+        '%26',
+        // &
+        '%24',
+        // $
+        '%3f',
+        // ?
+        '%3b',
+        // ;
+        '%3d'
+        // =
+    );
 
     /**
      * List of never allowed strings
      *
      * @var    array
      */
-    protected $neverAllowedStr
-        = array(
-            'document.cookie'   => '[removed]',
-            '(document).cookie' => '[removed]',
-            'document.write'    => '[removed]',
-            '(document).write'  => '[removed]',
-            '.parentNode'       => '[removed]',
-            '.innerHTML'        => '[removed]',
-            '-moz-binding'      => '[removed]',
-            '<!--'              => '&lt;!--',
-            '-->'               => '--&gt;',
-            '<![CDATA['         => '&lt;![CDATA[',
-            '<comment>'         => '&lt;comment&gt;',
-            '<%'                => '&lt;&#37;'
-        );
+    protected $neverAllowedStr = array(
+        'document.cookie'   => '[removed]',
+        '(document).cookie' => '[removed]',
+        'document.write'    => '[removed]',
+        '(document).write'  => '[removed]',
+        '.parentNode'       => '[removed]',
+        '.innerHTML'        => '[removed]',
+        '-moz-binding'      => '[removed]',
+        '<!--'              => '&lt;!--',
+        '-->'               => '--&gt;',
+        '<![CDATA['         => '&lt;![CDATA[',
+        '<comment>'         => '&lt;comment&gt;',
+        '<%'                => '&lt;&#37;'
+    );
 
     /**
      * List of never allowed regex replacements
      *
      * @var    array
      */
-    protected $neverAllowedStrRegex
-        = array(
-            'javascript\s*:',
-            '(\(?document\)?|\(?window\)?(\.document)?)\.(location|on\w*)',
-            'expression\s*(\(|&\#40;)',
-            // CSS and IE
-            'vbscript\s*:',
-            // IE, surprise!
-            'wscript\s*:',
-            // IE
-            'jscript\s*:',
-            // IE
-            'vbs\s*:',
-            // IE
-            'Redirect\s+30\d',
-            "([\"'])?data\s*:[^\\1]*?base64[^\\1]*?,[^\\1]*?\\1?"
-        );
+    protected $neverAllowedStrRegex = array(
+        'javascript\s*:',
+        '(\(?document\)?|\(?window\)?(\.document)?)\.(location|on\w*)',
+        'expression\s*(\(|&\#40;)',
+        // CSS and IE
+        'vbscript\s*:',
+        // IE, surprise!
+        'wscript\s*:',
+        // IE
+        'jscript\s*:',
+        // IE
+        'vbs\s*:',
+        // IE
+        'Redirect\s+30\d',
+        "([\"'])?data\s*:[^\\1]*?base64[^\\1]*?,[^\\1]*?\\1?"
+    );
+
+    /**
+     * Function getVersion
+     *
+     * @return string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 09/23/2021 35:58
+     */
+    public function getVersion()
+    {
+        return self::VERSION;
+    }
 
     /**
      * Function xss_hash - Generates the XSS hash if needed and returns it.
@@ -484,6 +494,27 @@ class Escape implements Environment
         while ($count);
 
         return $str;
+    }
+
+    /**
+     * Function escapeInput - Very Escape Input String
+     *
+     * @param $var
+     *
+     * @return string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 09/02/2023 33:40
+     */
+    public function escapeInput($var = '')
+    {
+        $var = trim($var);
+        $var = $this->xssClean($var);
+        $var = strip_tags($var);
+        $var = $this->escapeHtml($var);
+        $var = htmlspecialchars($var, ENT_QUOTES | ENT_HTML5 | ENT_XHTML, 'UTF-8');
+
+        return trim($var);
     }
 
     /**

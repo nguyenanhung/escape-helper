@@ -110,6 +110,22 @@ if (!function_exists('escapeJs')) {
         return (new Escape())->escapeJs($string);
     }
 }
+if (!function_exists('escapeInputVar')) {
+    /**
+     * Function escapeInputVar
+     *
+     * @param $var
+     *
+     * @return string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 09/02/2023 36:33
+     */
+    function escapeInputVar($var)
+    {
+        return (new Escape())->escapeInput($var);
+    }
+}
 if (!function_exists('escapeCss')) {
     /**
      * Function escapeCss
