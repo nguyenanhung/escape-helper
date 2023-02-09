@@ -110,6 +110,38 @@ if (!function_exists('escapeJs')) {
         return (new Escape())->escapeJs($string);
     }
 }
+if (!function_exists('escapeInputVar')) {
+    /**
+     * Function escapeInputVar
+     *
+     * @param $var
+     *
+     * @return string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 09/02/2023 36:33
+     */
+    function escapeInputVar($var): string
+    {
+        return (new Escape())->escapeInput($var);
+    }
+}
+if (!function_exists('escape_input_var')) {
+    /**
+     * Function escape_input_var
+     *
+     * @param $var
+     *
+     * @return string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 09/02/2023 36:33
+     */
+    function escape_input_var($var): string
+    {
+        return escapeInputVar($var);
+    }
+}
 if (!function_exists('escapeCss')) {
     /**
      * Function escapeCss
@@ -384,5 +416,15 @@ if (!function_exists('sanitizeFilename')) {
     function sanitizeFilename($str, bool $relative_path = false): string
     {
         return (new Escape())->sanitizeFilename($str, $relative_path);
+    }
+}
+if (!function_exists('bear_framework_basic_clean_str')) {
+    function bear_framework_basic_clean_str($str = ''): string
+    {
+        $str = trim($str);
+        $str = strip_tags($str);
+        $str = htmlspecialchars($str, ENT_QUOTES | ENT_HTML5 | ENT_XHTML, 'UTF-8');
+
+        return trim($str);
     }
 }

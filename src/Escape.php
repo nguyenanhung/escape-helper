@@ -20,9 +20,9 @@ use Laminas\Escaper\Escaper;
  * @author    713uk13m <dev@nguyenanhung.com>
  * @copyright 713uk13m <dev@nguyenanhung.com>
  */
-class Escape implements Environment
+class Escape
 {
-    use Version;
+    const VERSION = '2.0.2';
 
     /**
      * Character set
@@ -117,6 +117,19 @@ class Escape implements Environment
         'Redirect\s+30\d',
         "([\"'])?data\s*:[^\\1]*?base64[^\\1]*?,[^\\1]*?\\1?"
     );
+
+    /**
+     * Function getVersion
+     *
+     * @return string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 09/23/2021 35:58
+     */
+    public function getVersion(): string
+    {
+        return self::VERSION;
+    }
 
     /**
      * Function xss_hash - Generates the XSS hash if needed and returns it.
@@ -455,6 +468,27 @@ class Escape implements Environment
         while ($count);
 
         return $str;
+    }
+
+    /**
+     * Function escapeInput - Very Escape Input String
+     *
+     * @param $var
+     *
+     * @return string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 09/02/2023 33:40
+     */
+    public function escapeInput($var): string
+    {
+        $var = trim($var);
+        $var = $this->xssClean($var);
+        $var = strip_tags($var);
+        $var = $this->escapeHtml($var);
+        $var = htmlspecialchars($var, ENT_QUOTES | ENT_HTML5 | ENT_XHTML, 'UTF-8');
+
+        return trim($var);
     }
 
     /**
