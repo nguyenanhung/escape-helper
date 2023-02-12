@@ -23,6 +23,7 @@
         "ext-curl": "*",
         "ext-json": "*",
         "ext-ctype": "*",
+        "symfony/polyfill-mbstring": ">=1.0",
         "laminas/laminas-escaper": ">=2.6"
     },
     "autoload": {
