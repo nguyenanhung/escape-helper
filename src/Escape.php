@@ -22,7 +22,7 @@ use Laminas\Escaper\Escaper;
  */
 class Escape
 {
-    const VERSION = '2.0.2';
+    const VERSION = '2.0.3';
 
     /**
      * Character set
@@ -471,24 +471,35 @@ class Escape
     }
 
     /**
-     * Function escapeInput - Very Escape Input String
+     * Function escapeInput
      *
      * @param $var
      *
-     * @return string
+     * @return mixed|string|null
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 09/02/2023 33:40
+     * @time     : 12/02/2023 40:02
      */
-    public function escapeInput($var): string
+    public function escapeInput($var)
     {
-        $var = trim($var);
-        $var = $this->xssClean($var);
-        $var = strip_tags($var);
-        $var = $this->escapeHtml($var);
-        $var = htmlspecialchars($var, ENT_QUOTES | ENT_HTML5 | ENT_XHTML, 'UTF-8');
+        if (is_null($var)) {
+            return null;
+        }
+        if (is_string($var)) {
+            if ($this->isJson($var)) {
+                return $var;
+            } else {
+                $var = trim($var);
+                $var = $this->xssClean($var);
+                $var = strip_tags($var);
+                $var = $this->escapeHtml($var);
+                $var = htmlspecialchars($var, ENT_QUOTES | ENT_HTML5 | ENT_XHTML, 'UTF-8');
 
-        return trim($var);
+                return trim($var);
+            }
+        }
+
+        return $var;
     }
 
     /**
@@ -981,5 +992,33 @@ class Escape
         }
 
         return $out;
+    }
+
+    /**
+     * Returns true if the string is JSON, false otherwise. Unlike json_decode
+     * in PHP 5.x, this method is consistent with PHP 7 and other JSON parsers,
+     * in that an empty string is not considered valid JSON.
+     *
+     * @return bool TRUE if $str is JSON
+     */
+    protected function isJson($str): bool
+    {
+        if (!$this->strLength($str)) {
+            return false;
+        }
+
+        json_decode($str);
+
+        return (json_last_error() === JSON_ERROR_NONE);
+    }
+
+    /**
+     * Returns the length of the string. An alias for PHP's mb_strlen() function.
+     *
+     * @return int The number of characters in $str given the encoding
+     */
+    protected function strLength($str): int
+    {
+        return mb_strlen($str, mb_internal_encoding());
     }
 }
