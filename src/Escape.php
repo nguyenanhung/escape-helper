@@ -22,7 +22,7 @@ use Laminas\Escaper\Escaper;
  */
 class Escape
 {
-    const VERSION = '1.0.7';
+    const VERSION = '1.0.8';
 
     /**
      * Character set
@@ -501,10 +501,10 @@ class Escape
      *
      * @param $var
      *
-     * @return mixed|string
+     * @return mixed|string|null
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 12/02/2023 29:51
+     * @time     : 12/02/2023 42:40
      */
     public function escapeInput($var)
     {

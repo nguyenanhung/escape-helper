@@ -14,7 +14,7 @@ if (!function_exists('is_php')) {
     /**
      * Determines if the current version of PHP is equal to or greater than the supplied value
      *
-     * @param string
+     * @param string $version
      *
      * @return    bool    TRUE if the current version is $version or higher
      */
@@ -116,10 +116,10 @@ if (!function_exists('escapeInputVar')) {
      *
      * @param $var
      *
-     * @return mixed|string
+     * @return mixed|string|null
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 12/02/2023 30:17
+     * @time     : 12/02/2023 43:13
      */
     function escapeInputVar($var)
     {
@@ -132,10 +132,10 @@ if (!function_exists('escape_input_var')) {
      *
      * @param $var
      *
-     * @return mixed|string
+     * @return mixed|string|null
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 12/02/2023 30:21
+     * @time     : 12/02/2023 43:15
      */
     function escape_input_var($var)
     {
