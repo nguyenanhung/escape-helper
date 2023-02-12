@@ -116,10 +116,10 @@ if (!function_exists('escapeInputVar')) {
      *
      * @param $var
      *
-     * @return string
+     * @return mixed|string
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 09/02/2023 36:33
+     * @time     : 12/02/2023 30:17
      */
     function escapeInputVar($var)
     {
@@ -132,10 +132,10 @@ if (!function_exists('escape_input_var')) {
      *
      * @param $var
      *
-     * @return string
+     * @return mixed|string
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 09/02/2023 36:33
+     * @time     : 12/02/2023 30:21
      */
     function escape_input_var($var)
     {
