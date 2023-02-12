@@ -512,7 +512,7 @@ class Escape
             return null;
         }
         if (is_string($var)) {
-            if ($this->_isJson($var)) {
+            if ($this->isJson($var)) {
                 return $var;
             } else {
                 $var = trim($var);
@@ -1089,9 +1089,9 @@ class Escape
      *
      * @return bool TRUE if $str is JSON
      */
-    protected function _isJson($str)
+    protected function isJson($str)
     {
-        if (!$this->_length($str)) {
+        if (!$this->strLength($str)) {
             return false;
         }
 
@@ -1105,7 +1105,7 @@ class Escape
      *
      * @return int The number of characters in $str given the encoding
      */
-    protected function _length($str)
+    protected function strLength($str)
     {
         return mb_strlen($str, mb_internal_encoding());
     }
