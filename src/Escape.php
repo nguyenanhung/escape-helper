@@ -22,7 +22,7 @@ use Laminas\Escaper\Escaper;
  */
 class Escape
 {
-    const VERSION = '1.1.0';
+    const VERSION = '1.1.1';
 
     /**
      * Character set
@@ -374,12 +374,12 @@ class Escape
      *
      * @param mixed $string
      *
-     * @return string|null
+     * @return mixed
      */
     public function escapeHtml($string)
     {
-        if ($string === null) {
-            return null;
+        if (empty($string)){
+            return $string;
         }
         $escape = new Escaper('utf-8');
 
@@ -391,17 +391,16 @@ class Escape
      *
      * @param mixed $string
      *
-     * @return string|null
+     * @return mixed
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/21/2021 00:05
      */
     public function htmlEscape($string)
     {
-        if ($string === null) {
-            return null;
+        if (empty($string)){
+            return $string;
         }
-
         return $this->escapeHtml($string);
     }
 
@@ -413,12 +412,12 @@ class Escape
      *
      * @param mixed $string
      *
-     * @return string|null
+     * @return mixed
      */
     public function escapeHtmlAttribute($string)
     {
-        if ($string === null) {
-            return null;
+        if (empty($string)){
+            return $string;
         }
         $escape = new Escaper('utf-8');
 
@@ -433,12 +432,12 @@ class Escape
      *
      * @param mixed $string
      *
-     * @return string|null
+     * @return mixed
      */
     public function escapeJs($string)
     {
-        if ($string === null) {
-            return null;
+        if (empty($string)){
+            return $string;
         }
         $escape = new Escaper('utf-8');
 
@@ -450,15 +449,15 @@ class Escape
      *
      * @param mixed $string
      *
-     * @return string|null
+     * @return mixed
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/20/2021 58:14
      */
     public function escapeCss($string)
     {
-        if ($string === null) {
-            return null;
+        if (empty($string)){
+            return $string;
         }
         $escape = new Escaper('utf-8');
 
@@ -473,12 +472,12 @@ class Escape
      *
      * @param mixed $string
      *
-     * @return string|null
+     * @return mixed
      */
     public function escapeUrl($string)
     {
-        if ($string === null) {
-            return null;
+        if (empty($string)) {
+            return $string;
         }
         $escape = new Escaper('utf-8');
 
@@ -527,8 +526,8 @@ class Escape
      */
     public function escapeInput($var)
     {
-        if (is_null($var)) {
-            return null;
+        if (empty($var)){
+            return $var;
         }
         if (is_string($var)) {
             if ($this->isJson($var)) {
