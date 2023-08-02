@@ -22,7 +22,7 @@ use Laminas\Escaper\Escaper;
  */
 class Escape
 {
-    const VERSION = '1.0.9';
+    const VERSION = '1.1.0';
 
     /**
      * Character set
@@ -374,7 +374,7 @@ class Escape
      *
      * @param mixed $string
      *
-     * @return string
+     * @return string|null
      */
     public function escapeHtml($string)
     {
@@ -391,7 +391,7 @@ class Escape
      *
      * @param mixed $string
      *
-     * @return string
+     * @return string|null
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/21/2021 00:05
@@ -413,7 +413,7 @@ class Escape
      *
      * @param mixed $string
      *
-     * @return string
+     * @return string|null
      */
     public function escapeHtmlAttribute($string)
     {
@@ -433,7 +433,7 @@ class Escape
      *
      * @param mixed $string
      *
-     * @return string
+     * @return string|null
      */
     public function escapeJs($string)
     {
@@ -450,7 +450,7 @@ class Escape
      *
      * @param mixed $string
      *
-     * @return string
+     * @return string|null
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/20/2021 58:14
@@ -473,7 +473,7 @@ class Escape
      *
      * @param mixed $string
      *
-     * @return string
+     * @return string|null
      */
     public function escapeUrl($string)
     {
@@ -533,15 +533,15 @@ class Escape
         if (is_string($var)) {
             if ($this->isJson($var)) {
                 return $var;
-            } else {
-                $var = trim($var);
-                $var = $this->xssClean($var);
-                $var = strip_tags($var);
-                $var = $this->escapeHtml($var);
-                $var = htmlspecialchars($var, ENT_QUOTES | ENT_HTML5 | ENT_XHTML, 'UTF-8');
-
-                return trim($var);
             }
+
+            $var = trim($var);
+            $var = $this->xssClean($var);
+            $var = strip_tags($var);
+            $var = $this->escapeHtml($var);
+            $var = htmlspecialchars($var, ENT_QUOTES | ENT_HTML5 | ENT_XHTML, 'UTF-8');
+
+            return trim($var);
         }
 
         return $var;

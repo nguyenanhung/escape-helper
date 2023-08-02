@@ -39,7 +39,7 @@ if (!function_exists('escapeHtml')) {
      *
      * @param mixed $string
      *
-     * @return string
+     * @return string|null
      */
     function escapeHtml($string)
     {
@@ -56,7 +56,7 @@ if (!function_exists('htmlEscape')) {
      *
      * @param mixed $string
      *
-     * @return string
+     * @return string|null
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/21/2021 00:05
@@ -79,7 +79,7 @@ if (!function_exists('escapeHtmlAttr')) {
      *
      * @param mixed $string
      *
-     * @return string
+     * @return string|null
      */
     function escapeHtmlAttr($string)
     {
@@ -96,7 +96,7 @@ if (!function_exists('escapeHtmlAttribute')) {
      *
      * @param mixed $string
      *
-     * @return string
+     * @return string|null
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/23/2021 44:34
@@ -119,7 +119,7 @@ if (!function_exists('escapeJs')) {
      *
      * @param mixed $string
      *
-     * @return string
+     * @return string|null
      */
     function escapeJs($string)
     {
@@ -172,7 +172,7 @@ if (!function_exists('escapeCss')) {
      *
      * @param mixed $string
      *
-     * @return string
+     * @return string|null
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/20/2021 58:14
@@ -195,7 +195,7 @@ if (!function_exists('escapeUrl')) {
      *
      * @param mixed $string
      *
-     * @return string
+     * @return string|null
      */
     function escapeUrl($string)
     {
@@ -229,13 +229,17 @@ if (!function_exists('escape_html')) {
      *
      * @param $string
      *
-     * @return string
+     * @return string|null
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 05/25/2021 58:03
      */
     function escape_html($string)
     {
+        if ($string === null) {
+            return null;
+        }
+
         return (new Escape())->escapeHtml($string);
     }
 }
@@ -245,13 +249,17 @@ if (!function_exists('escape_html_attribute')) {
      *
      * @param $string
      *
-     * @return string
+     * @return string|null
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 05/25/2021 58:41
      */
     function escape_html_attribute($string)
     {
+        if ($string === null) {
+            return null;
+        }
+
         return (new Escape())->escapeHtmlAttribute($string);
     }
 }
@@ -261,13 +269,17 @@ if (!function_exists('escape_js')) {
      *
      * @param $string
      *
-     * @return string
+     * @return string|null
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 05/25/2021 59:04
      */
     function escape_js($string)
     {
+        if ($string === null) {
+            return null;
+        }
+
         return (new Escape())->escapeJs($string);
     }
 }
@@ -277,13 +289,17 @@ if (!function_exists('escape_css')) {
      *
      * @param $string
      *
-     * @return string
+     * @return string|null
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 05/25/2021 59:24
      */
     function escape_css($string)
     {
+        if ($string === null) {
+            return null;
+        }
+
         return (new Escape())->escapeCss($string);
     }
 }
@@ -293,13 +309,17 @@ if (!function_exists('escape_url')) {
      *
      * @param $string
      *
-     * @return string
+     * @return string|null
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 05/25/2021 59:40
      */
     function escape_url($string)
     {
+        if ($string === null) {
+            return null;
+        }
+
         return (new Escape())->escapeUrl($string);
     }
 }
