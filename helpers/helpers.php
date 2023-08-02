@@ -41,8 +41,12 @@ if (!function_exists('escapeHtml')) {
      *
      * @return string
      */
-    function escapeHtml($string = '')
+    function escapeHtml($string)
     {
+        if ($string === null) {
+            return null;
+        }
+
         return (new Escape())->escapeHtml($string);
     }
 }
@@ -57,8 +61,12 @@ if (!function_exists('htmlEscape')) {
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/21/2021 00:05
      */
-    function htmlEscape($string = '')
+    function htmlEscape($string)
     {
+        if ($string === null) {
+            return null;
+        }
+
         return (new Escape())->escapeHtml($string);
     }
 }
@@ -73,8 +81,12 @@ if (!function_exists('escapeHtmlAttr')) {
      *
      * @return string
      */
-    function escapeHtmlAttr($string = '')
+    function escapeHtmlAttr($string)
     {
+        if ($string === null) {
+            return null;
+        }
+
         return (new Escape())->escapeHtmlAttribute($string);
     }
 }
@@ -89,8 +101,12 @@ if (!function_exists('escapeHtmlAttribute')) {
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/23/2021 44:34
      */
-    function escapeHtmlAttribute($string = '')
+    function escapeHtmlAttribute($string)
     {
+        if ($string === null) {
+            return null;
+        }
+
         return (new Escape())->escapeHtmlAttribute($string);
     }
 }
@@ -105,8 +121,12 @@ if (!function_exists('escapeJs')) {
      *
      * @return string
      */
-    function escapeJs($string = '')
+    function escapeJs($string)
     {
+        if ($string === null) {
+            return null;
+        }
+
         return (new Escape())->escapeJs($string);
     }
 }
@@ -123,6 +143,10 @@ if (!function_exists('escapeInputVar')) {
      */
     function escapeInputVar($var)
     {
+        if ($var === null) {
+            return null;
+        }
+
         return (new Escape())->escapeInput($var);
     }
 }
@@ -153,8 +177,12 @@ if (!function_exists('escapeCss')) {
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/20/2021 58:14
      */
-    function escapeCss($string = '')
+    function escapeCss($string)
     {
+        if ($string === null) {
+            return null;
+        }
+
         return (new Escape())->escapeCss($string);
     }
 }
@@ -169,8 +197,12 @@ if (!function_exists('escapeUrl')) {
      *
      * @return string
      */
-    function escapeUrl($string = '')
+    function escapeUrl($string)
     {
+        if ($string === null) {
+            return null;
+        }
+
         return (new Escape())->escapeUrl($string);
     }
 }

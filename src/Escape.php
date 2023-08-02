@@ -22,7 +22,7 @@ use Laminas\Escaper\Escaper;
  */
 class Escape
 {
-    const VERSION = '1.0.8';
+    const VERSION = '1.0.9';
 
     /**
      * Character set
@@ -376,8 +376,11 @@ class Escape
      *
      * @return string
      */
-    public function escapeHtml($string = '')
+    public function escapeHtml($string)
     {
+        if ($string === null) {
+            return null;
+        }
         $escape = new Escaper('utf-8');
 
         return $escape->escapeHtml($string);
@@ -393,8 +396,12 @@ class Escape
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/21/2021 00:05
      */
-    public function htmlEscape($string = '')
+    public function htmlEscape($string)
     {
+        if ($string === null) {
+            return null;
+        }
+
         return $this->escapeHtml($string);
     }
 
@@ -408,8 +415,11 @@ class Escape
      *
      * @return string
      */
-    public function escapeHtmlAttribute($string = '')
+    public function escapeHtmlAttribute($string)
     {
+        if ($string === null) {
+            return null;
+        }
         $escape = new Escaper('utf-8');
 
         return $escape->escapeHtmlAttr($string);
@@ -425,8 +435,11 @@ class Escape
      *
      * @return string
      */
-    public function escapeJs($string = '')
+    public function escapeJs($string)
     {
+        if ($string === null) {
+            return null;
+        }
         $escape = new Escaper('utf-8');
 
         return $escape->escapeJs($string);
@@ -442,8 +455,11 @@ class Escape
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/20/2021 58:14
      */
-    public function escapeCss($string = '')
+    public function escapeCss($string)
     {
+        if ($string === null) {
+            return null;
+        }
         $escape = new Escaper('utf-8');
 
         return $escape->escapeCss($string);
@@ -459,8 +475,11 @@ class Escape
      *
      * @return string
      */
-    public function escapeUrl($string = '')
+    public function escapeUrl($string)
     {
+        if ($string === null) {
+            return null;
+        }
         $escape = new Escaper('utf-8');
 
         return $escape->escapeUrl($string);
