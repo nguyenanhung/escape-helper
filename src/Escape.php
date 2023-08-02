@@ -22,7 +22,7 @@ use Laminas\Escaper\Escaper;
  */
 class Escape
 {
-    const VERSION = '2.0.3';
+    const VERSION = '2.0.4';
 
     /**
      * Character set
@@ -348,10 +348,13 @@ class Escape
      *
      * @param mixed $string
      *
-     * @return string
+     * @return string|null
      */
-    public function escapeHtml($string = ''): string
+    public function escapeHtml($string)
     {
+        if ($string === null) {
+            return null;
+        }
         $escape = new Escaper('utf-8');
 
         return $escape->escapeHtml($string);
@@ -362,13 +365,17 @@ class Escape
      *
      * @param mixed $string
      *
-     * @return string
+     * @return string|null
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/21/2021 00:05
      */
-    public function htmlEscape($string = ''): string
+    public function htmlEscape($string)
     {
+        if ($string === null) {
+            return null;
+        }
+
         return $this->escapeHtml($string);
     }
 
@@ -380,10 +387,13 @@ class Escape
      *
      * @param mixed $string
      *
-     * @return string
+     * @return string|null
      */
-    public function escapeHtmlAttribute($string = ''): string
+    public function escapeHtmlAttribute($string)
     {
+        if ($string === null) {
+            return null;
+        }
         $escape = new Escaper('utf-8');
 
         return $escape->escapeHtmlAttr($string);
@@ -397,10 +407,13 @@ class Escape
      *
      * @param mixed $string
      *
-     * @return string
+     * @return string|null
      */
-    public function escapeJs($string = ''): string
+    public function escapeJs($string)
     {
+        if ($string === null) {
+            return null;
+        }
         $escape = new Escaper('utf-8');
 
         return $escape->escapeJs($string);
@@ -411,13 +424,16 @@ class Escape
      *
      * @param mixed $string
      *
-     * @return string
+     * @return string|null
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/20/2021 58:14
      */
-    public function escapeCss($string = ''): string
+    public function escapeCss($string)
     {
+        if ($string === null) {
+            return null;
+        }
         $escape = new Escaper('utf-8');
 
         return $escape->escapeCss($string);
@@ -431,10 +447,13 @@ class Escape
      *
      * @param mixed $string
      *
-     * @return string
+     * @return string|null
      */
-    public function escapeUrl($string = ''): string
+    public function escapeUrl($string)
     {
+        if ($string === null) {
+            return null;
+        }
         $escape = new Escaper('utf-8');
 
         return $escape->escapeUrl($string);
@@ -488,15 +507,15 @@ class Escape
         if (is_string($var)) {
             if ($this->isJson($var)) {
                 return $var;
-            } else {
-                $var = trim($var);
-                $var = $this->xssClean($var);
-                $var = strip_tags($var);
-                $var = $this->escapeHtml($var);
-                $var = htmlspecialchars($var, ENT_QUOTES | ENT_HTML5 | ENT_XHTML, 'UTF-8');
-
-                return trim($var);
             }
+
+            $var = trim($var);
+            $var = $this->xssClean($var);
+            $var = strip_tags($var);
+            $var = $this->escapeHtml($var);
+            $var = htmlspecialchars($var, ENT_QUOTES | ENT_HTML5 | ENT_XHTML, 'UTF-8');
+
+            return trim($var);
         }
 
         return $var;

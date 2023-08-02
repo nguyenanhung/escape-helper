@@ -39,10 +39,14 @@ if (!function_exists('escapeHtml')) {
      *
      * @param mixed $string
      *
-     * @return string
+     * @return string|null
      */
-    function escapeHtml($string = ''): string
+    function escapeHtml($string)
     {
+        if ($string === null) {
+            return null;
+        }
+
         return (new Escape())->escapeHtml($string);
     }
 }
@@ -52,13 +56,17 @@ if (!function_exists('htmlEscape')) {
      *
      * @param mixed $string
      *
-     * @return string
+     * @return string|null
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/21/2021 00:05
      */
-    function htmlEscape($string = ''): string
+    function htmlEscape($string)
     {
+        if ($string === null) {
+            return null;
+        }
+
         return (new Escape())->escapeHtml($string);
     }
 }
@@ -71,10 +79,14 @@ if (!function_exists('escapeHtmlAttr')) {
      *
      * @param mixed $string
      *
-     * @return string
+     * @return string|null
      */
-    function escapeHtmlAttr($string = ''): string
+    function escapeHtmlAttr($string)
     {
+        if ($string === null) {
+            return null;
+        }
+
         return (new Escape())->escapeHtmlAttribute($string);
     }
 }
@@ -84,13 +96,17 @@ if (!function_exists('escapeHtmlAttribute')) {
      *
      * @param mixed $string
      *
-     * @return string
+     * @return string|null
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/23/2021 44:34
      */
-    function escapeHtmlAttribute($string = ''): string
+    function escapeHtmlAttribute($string)
     {
+        if ($string === null) {
+            return null;
+        }
+
         return (new Escape())->escapeHtmlAttribute($string);
     }
 }
@@ -103,10 +119,14 @@ if (!function_exists('escapeJs')) {
      *
      * @param mixed $string
      *
-     * @return string
+     * @return string|null
      */
-    function escapeJs($string = ''): string
+    function escapeJs($string)
     {
+        if ($string === null) {
+            return null;
+        }
+
         return (new Escape())->escapeJs($string);
     }
 }
@@ -123,6 +143,10 @@ if (!function_exists('escapeInputVar')) {
      */
     function escapeInputVar($var)
     {
+        if ($var === null) {
+            return null;
+        }
+
         return (new Escape())->escapeInput($var);
     }
 }
@@ -148,13 +172,17 @@ if (!function_exists('escapeCss')) {
      *
      * @param mixed $string
      *
-     * @return string
+     * @return string|null
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/20/2021 58:14
      */
-    function escapeCss($string = ''): string
+    function escapeCss($string)
     {
+        if ($string === null) {
+            return null;
+        }
+
         return (new Escape())->escapeCss($string);
     }
 }
@@ -167,10 +195,14 @@ if (!function_exists('escapeUrl')) {
      *
      * @param mixed $string
      *
-     * @return string
+     * @return string|null
      */
-    function escapeUrl($string = ''): string
+    function escapeUrl($string)
     {
+        if ($string === null) {
+            return null;
+        }
+
         return (new Escape())->escapeUrl($string);
     }
 }
@@ -184,7 +216,7 @@ if (!function_exists('removeInvisibleCharacters')) {
      * @param mixed $str
      * @param bool  $urlEncoded
      *
-     * @return    string
+     * @return string|null
      */
     function removeInvisibleCharacters($str, bool $urlEncoded = true): string
     {
@@ -197,13 +229,17 @@ if (!function_exists('escape_html')) {
      *
      * @param $string
      *
-     * @return string
+     * @return string|null
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 05/25/2021 58:03
      */
-    function escape_html($string): string
+    function escape_html($string)
     {
+        if ($string === null) {
+            return null;
+        }
+
         return (new Escape())->escapeHtml($string);
     }
 }
@@ -213,7 +249,7 @@ if (!function_exists('escape_html_attribute')) {
      *
      * @param $string
      *
-     * @return string
+     * @return string|null
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 05/25/2021 58:41
@@ -229,13 +265,17 @@ if (!function_exists('escape_js')) {
      *
      * @param $string
      *
-     * @return string
+     * @return string|null
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 05/25/2021 59:04
      */
-    function escape_js($string): string
+    function escape_js($string)
     {
+        if ($string === null) {
+            return null;
+        }
+
         return (new Escape())->escapeJs($string);
     }
 }
@@ -245,13 +285,17 @@ if (!function_exists('escape_css')) {
      *
      * @param $string
      *
-     * @return string
+     * @return string|null
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 05/25/2021 59:24
      */
-    function escape_css($string): string
+    function escape_css($string)
     {
+        if ($string === null) {
+            return null;
+        }
+
         return (new Escape())->escapeCss($string);
     }
 }
@@ -261,13 +305,17 @@ if (!function_exists('escape_url')) {
      *
      * @param $string
      *
-     * @return string
+     * @return string|null
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 05/25/2021 59:40
      */
-    function escape_url($string): string
+    function escape_url($string)
     {
+        if ($string === null) {
+            return null;
+        }
+
         return (new Escape())->escapeUrl($string);
     }
 }
