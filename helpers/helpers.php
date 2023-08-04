@@ -43,8 +43,8 @@ if (!function_exists('escapeHtml')) {
      */
     function escapeHtml($string)
     {
-        if ($string === null) {
-            return null;
+        if (empty($string)) {
+            return $string;
         }
 
         return (new Escape())->escapeHtml($string);
