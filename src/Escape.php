@@ -22,7 +22,7 @@ use Laminas\Escaper\Escaper;
  */
 class Escape
 {
-    const VERSION = '2.0.5';
+    const VERSION = '2.0.6';
 
     /**
      * Character set
