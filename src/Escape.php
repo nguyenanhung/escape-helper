@@ -220,7 +220,7 @@ class Escape
      */
     public function entityDecode(string $str, string $charset = null): string
     {
-        if (strpos($str, '&') === false) {
+        if (mb_strpos($str, '&') === false) {
             return $str;
         }
 
@@ -281,7 +281,7 @@ class Escape
      */
     public function doHash(string $str, string $type = 'sha1'): string
     {
-        if (!in_array(strtolower($type), hash_algos(), true)) {
+        if (!in_array(mb_strtolower($type), hash_algos(), true)) {
             $type = 'md5';
         }
 
@@ -571,7 +571,7 @@ class Escape
          *
          * Note: Use rawurldecode() so it does not remove plus signs
          */
-        if (strpos($str, '%') !== false) {
+        if (mb_strpos($str, '%') !== false) {
             do {
                 $oldStr = $str;
                 $str = rawurldecode($str);
@@ -641,7 +641,7 @@ class Escape
 
             // We only want to do this when it is followed by a non-word character
             // That way valid stuff like "dealer to" does not become "dealerto"
-            $str = preg_replace_callback('#(' . substr($word, 0, -3) . ')(\W)#is', array($this, '_compactExplodedWords'), $str);
+            $str = preg_replace_callback('#(' . mb_substr($word, 0, -3) . ')(\W)#is', array($this, '_compactExplodedWords'), $str);
         }
 
         /*
@@ -884,7 +884,7 @@ class Escape
             return '&lt;' . $matches[1];
         }
 
-        if (in_array(strtolower($matches['tagName']), $naughty_tags, true)) {
+        if (in_array(mb_strtolower($matches['tagName']), $naughty_tags, true)) {
             return '&lt;' . $matches[1] . '&gt;';
         }
 
@@ -921,7 +921,7 @@ class Escape
                     $attributes[] = $attribute[0][0];
                 }
 
-                $matches['attributes'] = substr($matches['attributes'], $attribute[0][1] + strlen($attribute[0][0]));
+                $matches['attributes'] = mb_substr($matches['attributes'], $attribute[0][1] + mb_strlen($attribute[0][0]));
             }
             while ($matches['attributes'] !== '');
 
