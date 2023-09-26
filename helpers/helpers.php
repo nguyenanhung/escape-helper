@@ -21,7 +21,7 @@ if (!function_exists('is_php')) {
     function is_php($version)
     {
         static $_is_php;
-        $version = (string) $version;
+        $version = (string)$version;
 
         if (!isset($_is_php[$version])) {
             $_is_php[$version] = version_compare(PHP_VERSION, $version, '>=');
@@ -34,12 +34,12 @@ if (!function_exists('escapeHtml')) {
     /**
      * Function escapeHtml
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 2018-12-09 14:24
-     *
      * @param mixed $string
      *
      * @return mixed
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 2018-12-09 14:24
+     *
      */
     function escapeHtml($string)
     {
@@ -74,12 +74,12 @@ if (!function_exists('escapeHtmlAttr')) {
     /**
      * Function escapeHtmlAttr
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 2018-12-09 14:24
-     *
      * @param mixed $string
      *
      * @return mixed
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 2018-12-09 14:24
+     *
      */
     function escapeHtmlAttr($string)
     {
@@ -114,12 +114,12 @@ if (!function_exists('escapeJs')) {
     /**
      * Function escapeJs
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 2018-12-09 14:25
-     *
      * @param mixed $string
      *
      * @return mixed
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 2018-12-09 14:25
+     *
      */
     function escapeJs($string)
     {
@@ -190,12 +190,12 @@ if (!function_exists('escapeUrl')) {
     /**
      * Function escapeUrl
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 2018-12-09 14:25
-     *
      * @param mixed $string
      *
      * @return mixed
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 2018-12-09 14:25
+     *
      */
     function escapeUrl($string)
     {
@@ -214,7 +214,7 @@ if (!function_exists('removeInvisibleCharacters')) {
      * between ascii characters, like Java\0script.
      *
      * @param mixed $str
-     * @param bool  $urlEncoded
+     * @param bool $urlEncoded
      *
      * @return    string
      */
@@ -331,7 +331,7 @@ if (!function_exists('remove_invisible_characters')) {
      * between ascii characters, like Java\0script.
      *
      * @param mixed $str
-     * @param bool  $urlEncoded
+     * @param bool $urlEncoded
      *
      * @return    string
      */
@@ -363,8 +363,8 @@ if (!function_exists('_xss_clean_')) {
      *        vulnerabilities along with a few other hacks I've
      *        harvested from examining vulnerabilities in other programs.
      *
-     * @param string|string[] $str     Input data
-     * @param bool            $isImage Whether the input is an image
+     * @param string|string[] $str Input data
+     * @param bool $isImage Whether the input is an image
      *
      * @return    array|bool|string|string[]|null
      */
@@ -377,13 +377,13 @@ if (!function_exists('do_hash')) {
     /**
      * Hash encode a string
      *
-     * @todo          Remove in version 3.1+.
-     * @deprecated    3.0.0    Use PHP's native hash() instead.
-     *
      * @param string $str
      * @param string $type = 'sha1'
      *
      * @return    string
+     * @deprecated    3.0.0    Use PHP's native hash() instead.
+     *
+     * @todo          Remove in version 3.1+.
      */
     function do_hash($str, $type = 'sha1')
     {
@@ -446,8 +446,8 @@ if (!function_exists('sanitize_filename')) {
     /**
      * Sanitize Filename
      *
-     * @param string $str           Input file name
-     * @param bool   $relative_path Whether to preserve paths
+     * @param string $str Input file name
+     * @param bool $relative_path Whether to preserve paths
      *
      * @return    string
      */
@@ -460,8 +460,8 @@ if (!function_exists('sanitizeFilename')) {
     /**
      * Sanitize Filename
      *
-     * @param string $str           Input file name
-     * @param bool   $relative_path Whether to preserve paths
+     * @param string $str Input file name
+     * @param bool $relative_path Whether to preserve paths
      *
      * @return    string
      */
@@ -478,5 +478,12 @@ if (!function_exists('bear_framework_basic_clean_str')) {
         $str = htmlspecialchars($str, ENT_QUOTES | ENT_HTML5 | ENT_XHTML, 'UTF-8');
 
         return trim($str);
+    }
+}
+if (!function_exists('bear_framework_entity_decode')) {
+    function bear_framework_entity_decode($str = '', $charset = null)
+    {
+        $es = new nguyenanhung\Libraries\Escape\Escape();
+        return $es->entityDecode($str, $charset);
     }
 }
