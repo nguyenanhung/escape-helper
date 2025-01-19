@@ -22,7 +22,7 @@ use Laminas\Escaper\Escaper;
  */
 class Escape
 {
-    const VERSION = '2.1.0';
+    const VERSION = '3.0.0';
 
     /**
      * Character set
@@ -87,18 +87,18 @@ class Escape
      * @var    array
      */
     protected $neverAllowedStr = array(
-        'document.cookie'   => '[removed]',
+        'document.cookie' => '[removed]',
         '(document).cookie' => '[removed]',
-        'document.write'    => '[removed]',
-        '(document).write'  => '[removed]',
-        '.parentNode'       => '[removed]',
-        '.innerHTML'        => '[removed]',
-        '-moz-binding'      => '[removed]',
-        '<!--'              => '&lt;!--',
-        '-->'               => '--&gt;',
-        '<![CDATA['         => '&lt;![CDATA[',
-        '<comment>'         => '&lt;comment&gt;',
-        '<%'                => '&lt;&#37;'
+        'document.write' => '[removed]',
+        '(document).write' => '[removed]',
+        '.parentNode' => '[removed]',
+        '.innerHTML' => '[removed]',
+        '-moz-binding' => '[removed]',
+        '<!--' => '&lt;!--',
+        '-->' => '--&gt;',
+        '<![CDATA[' => '&lt;![CDATA[',
+        '<comment>' => '&lt;comment&gt;',
+        '<%' => '&lt;&#37;'
     );
 
     /**
@@ -158,7 +158,7 @@ class Escape
      */
     public function getRandomBytes(int $length)
     {
-        if (empty($length) || !ctype_digit((string) $length)) {
+        if (empty($length) || !ctype_digit((string)$length)) {
             return false;
         }
 
@@ -213,12 +213,12 @@ class Escape
      *
      * @link    http://php.net/html-entity-decode
      *
-     * @param string      $str     Input
+     * @param string $str Input
      * @param string|null $charset Character set
      *
      * @return    string
      */
-    public function entityDecode(string $str, string $charset = null): string
+    public function entityDecode(string $str, ?string $charset = null): string
     {
         if (mb_strpos($str, '&') === false) {
             return $str;
@@ -260,13 +260,16 @@ class Escape
             }
 
             // Decode numeric & UTF16 two byte entities
-            $str = html_entity_decode(preg_replace('/(&#(?:x0*[0-9a-f]{2,5}(?![0-9a-f;])|(?:0*\d{2,4}(?![0-9;]))))/iS', '$1;', $str), $flag, $charset);
+            $str = html_entity_decode(
+                preg_replace('/(&#(?:x0*[0-9a-f]{2,5}(?![0-9a-f;])|(?:0*\d{2,4}(?![0-9;]))))/iS', '$1;', $str),
+                $flag,
+                $charset
+            );
 
             if ($flag === ENT_COMPAT) {
                 $str = str_replace(array_values($_entities), array_keys($_entities), $str);
             }
-        }
-        while ($str_compare !== $str);
+        } while ($str_compare !== $str);
 
         return $str;
     }
@@ -309,14 +312,21 @@ class Escape
      */
     public function stripImageTags($str)
     {
-        return preg_replace(array('#<img[\s/]+.*?src\s*=\s*(["\'])([^\\1]+?)\\1.*?\>#i', '#<img[\s/]+.*?src\s*=\s*?(([^\s"\'=<>`]+)).*?\>#i'), '\\2', $str);
+        return preg_replace(
+            array(
+                '#<img[\s/]+.*?src\s*=\s*(["\'])([^\\1]+?)\\1.*?\>#i',
+                '#<img[\s/]+.*?src\s*=\s*?(([^\s"\'=<>`]+)).*?\>#i'
+            ),
+            '\\2',
+            $str
+        );
     }
 
     /**
      * Sanitize Filename
      *
-     * @param mixed $str           Input file name
-     * @param bool  $relative_path Whether to preserve paths
+     * @param mixed $str Input file name
+     * @param bool $relative_path Whether to preserve paths
      *
      * @return    string
      */
@@ -334,8 +344,7 @@ class Escape
         do {
             $old = $str;
             $str = str_replace($bad, '', $str);
-        }
-        while ($old !== $str);
+        } while ($old !== $str);
 
         return stripslashes($str);
     }
@@ -343,12 +352,12 @@ class Escape
     /**
      * Function escapeHtml
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 2018-12-09 14:24
-     *
      * @param mixed $string
      *
      * @return mixed
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 2018-12-09 14:24
+     *
      */
     public function escapeHtml($string)
     {
@@ -382,12 +391,12 @@ class Escape
     /**
      * Function escapeHtmlAttribute
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 2018-12-09 14:24
-     *
      * @param mixed $string
      *
      * @return mixed
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 2018-12-09 14:24
+     *
      */
     public function escapeHtmlAttribute($string)
     {
@@ -402,12 +411,12 @@ class Escape
     /**
      * Function escapeJs
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 2018-12-09 14:25
-     *
      * @param mixed $string
      *
      * @return mixed
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 2018-12-09 14:25
+     *
      */
     public function escapeJs($string)
     {
@@ -442,12 +451,12 @@ class Escape
     /**
      * Function escapeUrl
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 2018-12-09 14:25
-     *
      * @param mixed $string
      *
      * @return mixed
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 2018-12-09 14:25
+     *
      */
     public function escapeUrl($string)
     {
@@ -466,7 +475,7 @@ class Escape
      * between ascii characters, like Java\0script.
      *
      * @param mixed $str
-     * @param bool  $urlEncoded
+     * @param bool $urlEncoded
      *
      * @return    string
      */
@@ -483,8 +492,7 @@ class Escape
         $nonDisplay[] = '/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+/S';    // 00-08, 11, 12, 14-31, 127
         do {
             $str = preg_replace($nonDisplay, '', $str, -1, $count);
-        }
-        while ($count);
+        } while ($count);
 
         return $str;
     }
@@ -543,8 +551,8 @@ class Escape
      *        vulnerabilities along with a few other hacks I've
      *        harvested from examining vulnerabilities in other programs.
      *
-     * @param string|string[] $str     Input data
-     * @param bool            $isImage Whether the input is an image
+     * @param string|string[] $str Input data
+     * @param bool $isImage Whether the input is an image
      *
      * @return    array|bool|string|string[]|null
      */
@@ -576,8 +584,7 @@ class Escape
                 $oldStr = $str;
                 $str = rawurldecode($str);
                 $str = preg_replace_callback('#%(?:\s*[0-9a-f]){2,}#i', array($this, '_urlDecodeSpaces'), $str);
-            }
-            while ($oldStr !== $str);
+            } while ($oldStr !== $str);
             unset($oldStr);
         }
 
@@ -588,7 +595,11 @@ class Escape
          * We only convert entities that are within tags since
          * these are the ones that will pose security problems.
          */
-        $str = preg_replace_callback("/[^a-z0-9>]+[a-z0-9]+=([\'\"]).*?\\1/si", array($this, '_convertAttribute'), $str);
+        $str = preg_replace_callback(
+            "/[^a-z0-9>]+[a-z0-9]+=([\'\"]).*?\\1/si",
+            array($this, '_convertAttribute'),
+            $str
+        );
         $str = preg_replace_callback('/<\w+.*/si', array($this, '_decodeEntity'), $str);
 
         // Remove Invisible Characters Again!
@@ -634,14 +645,36 @@ class Escape
          * This corrects words like:  j a v a s c r i p t
          * These words are compacted back to their correct state.
          */
-        $words = array('javascript', 'expression', 'vbscript', 'jscript', 'wscript', 'vbs', 'script', 'base64', 'applet', 'alert', 'document', 'write', 'cookie', 'window', 'confirm', 'prompt', 'eval');
+        $words = array(
+            'javascript',
+            'expression',
+            'vbscript',
+            'jscript',
+            'wscript',
+            'vbs',
+            'script',
+            'base64',
+            'applet',
+            'alert',
+            'document',
+            'write',
+            'cookie',
+            'window',
+            'confirm',
+            'prompt',
+            'eval'
+        );
 
         foreach ($words as $word) {
             $word = implode('\s*', str_split($word)) . '\s*';
 
             // We only want to do this when it is followed by a non-word character
             // That way valid stuff like "dealer to" does not become "dealerto"
-            $str = preg_replace_callback('#(' . mb_substr($word, 0, -3) . ')(\W)#is', array($this, '_compactExplodedWords'), $str);
+            $str = preg_replace_callback(
+                '#(' . mb_substr($word, 0, -3) . ')(\W)#is',
+                array($this, '_compactExplodedWords'),
+                $str
+            );
         }
 
         /*
@@ -660,18 +693,25 @@ class Escape
             $original = $str;
 
             if (preg_match('/<a/i', $str)) {
-                $str = preg_replace_callback('#<a(?:rea)?[^a-z0-9>]+([^>]*?)(?:>|$)#si', array($this, '_jsLinkRemoval'), $str);
+                $str = preg_replace_callback(
+                    '#<a(?:rea)?[^a-z0-9>]+([^>]*?)(?:>|$)#si',
+                    array($this, '_jsLinkRemoval'),
+                    $str
+                );
             }
 
             if (preg_match('/<img/i', $str)) {
-                $str = preg_replace_callback('#<img[^a-z0-9]+([^>]*?)(?:\s?/?>|$)#si', array($this, '_jsImgRemoval'), $str);
+                $str = preg_replace_callback(
+                    '#<img[^a-z0-9]+([^>]*?)(?:\s?/?>|$)#si',
+                    array($this, '_jsImgRemoval'),
+                    $str
+                );
             }
 
             if (preg_match('/script|xss/i', $str)) {
                 $str = preg_replace('#</*(?:script|xss).*?>#si', '[removed]', $str);
             }
-        }
-        while ($original !== $str);
+        } while ($original !== $str);
         unset($original);
 
         /*
@@ -684,16 +724,16 @@ class Escape
          * Becomes: &lt;blink&gt;
          */
         $pattern = '#' . '<((?<slash>/*\s*)((?<tagName>[a-z0-9]+)(?=[^a-z0-9]|$)|.+)' // tag start and name, followed by a non-tag character
-                   . '[^\s\042\047a-z0-9>/=]*' // a valid attribute character immediately after the tag would count as a separator
-                   // optional attributes
-                   . '(?<attributes>(?:[\s\042\047/=]*' // non-attribute characters, excluding > (tag close) for obvious reasons
-                   . '[^\s\042\047>/=]+' // attribute characters
-                   // optional attribute-value
-                   . '(?:\s*=' // attribute-value separator
-                   . '(?:[^\s\042\047=><`]+|\s*\042[^\042]*\042|\s*\047[^\047]*\047|\s*(?U:[^\s\042\047=><`]*))' // single, double or non-quoted value
-                   . ')?' // end optional attribute-value group
-                   . ')*)' // end optional attributes group
-                   . '[^>]*)(?<closeTag>\>)?#isS';
+            . '[^\s\042\047a-z0-9>/=]*' // a valid attribute character immediately after the tag would count as a separator
+            // optional attributes
+            . '(?<attributes>(?:[\s\042\047/=]*' // non-attribute characters, excluding > (tag close) for obvious reasons
+            . '[^\s\042\047>/=]+' // attribute characters
+            // optional attribute-value
+            . '(?:\s*=' // attribute-value separator
+            . '(?:[^\s\042\047=><`]+|\s*\042[^\042]*\042|\s*\047[^\047]*\047|\s*(?U:[^\s\042\047=><`]*))' // single, double or non-quoted value
+            . ')?' // end optional attribute-value group
+            . ')*)' // end optional attributes group
+            . '[^>]*)(?<closeTag>\>)?#isS';
 
         // Note: It would be nice to optimize this for speed, BUT
         //       only matching the naughty elements here results in
@@ -701,8 +741,7 @@ class Escape
         do {
             $old_str = $str;
             $str = preg_replace_callback($pattern, array($this, '_sanitizeNaughtyHtml'), $str);
-        }
-        while ($old_str !== $str);
+        } while ($old_str !== $str);
         unset($old_str);
 
         /*
@@ -717,11 +756,19 @@ class Escape
          * For example:	eval('some code')
          * Becomes:	eval&#40;'some code'&#41;
          */
-        $str = preg_replace('#(alert|prompt|confirm|cmd|passthru|eval|exec|expression|system|fopen|fsockopen|file|file_get_contents|readfile|unlink)(\s*)\((.*?)\)#si', '\\1\\2&#40;\\3&#41;', $str);
+        $str = preg_replace(
+            '#(alert|prompt|confirm|cmd|passthru|eval|exec|expression|system|fopen|fsockopen|file|file_get_contents|readfile|unlink)(\s*)\((.*?)\)#si',
+            '\\1\\2&#40;\\3&#41;',
+            $str
+        );
 
         // Same thing, but for "tag functions" (e.g. eval`some code`)
         // See https://github.com/bcit-ci/CodeIgniter/issues/5420
-        $str = preg_replace('#(alert|prompt|confirm|cmd|passthru|eval|exec|expression|system|fopen|fsockopen|file|file_get_contents|readfile|unlink)(\s*)`(.*?)`#si', '\\1\\2&#96;\\3&#96;', $str);
+        $str = preg_replace(
+            '#(alert|prompt|confirm|cmd|passthru|eval|exec|expression|system|fopen|fsockopen|file|file_get_contents|readfile|unlink)(\s*)`(.*?)`#si',
+            '\\1\\2&#96;\\3&#96;',
+            $str
+        );
 
         // Final clean up
         // This adds a bit of extra precaution in case
@@ -877,7 +924,16 @@ class Escape
             'xss'
         );
 
-        static $evil_attributes = array('on\w+', 'style', 'xmlns', 'formaction', 'form', 'xlink:href', 'FSCommand', 'seekSegmentTime');
+        static $evil_attributes = array(
+            'on\w+',
+            'style',
+            'xmlns',
+            'formaction',
+            'form',
+            'xlink:href',
+            'FSCommand',
+            'seekSegmentTime'
+        );
 
         // First, escape unclosed tags
         if (empty($matches['closeTag'])) {
@@ -894,9 +950,9 @@ class Escape
 
             // Attribute-catching pattern
             $attributes_pattern = '#' . '(?<name>[^\s\042\047>/=]+)' // attribute characters
-                                  // optional attribute-value
-                                  . '(?:\s*=(?<value>[^\s\042\047=><`]+|\s*\042[^\042]*\042|\s*\047[^\047]*\047|\s*(?U:[^\s\042\047=><`]*)))' // attribute-value separator
-                                  . '#i';
+                // optional attribute-value
+                . '(?:\s*=(?<value>[^\s\042\047=><`]+|\s*\042[^\042]*\042|\s*\047[^\047]*\047|\s*(?U:[^\s\042\047=><`]*)))' // attribute-value separator
+                . '#i';
 
             // Blacklist pattern for evil attribute names
             $is_evil_pattern = '#^(' . implode('|', $evil_attributes) . ')$#i';
@@ -914,16 +970,21 @@ class Escape
                 }
 
                 if (// Is it indeed an "evil" attribute?
-                    preg_match($is_evil_pattern, $attribute['name'][0]) // Or does it have an equals sign, but no value and not quoted? Strip that too!
+                    preg_match(
+                        $is_evil_pattern,
+                        $attribute['name'][0]
+                    ) // Or does it have an equals sign, but no value and not quoted? Strip that too!
                     || (trim($attribute['value'][0]) === '')) {
                     $attributes[] = 'xss=removed';
                 } else {
                     $attributes[] = $attribute[0][0];
                 }
 
-                $matches['attributes'] = mb_substr($matches['attributes'], $attribute[0][1] + mb_strlen($attribute[0][0]));
-            }
-            while ($matches['attributes'] !== '');
+                $matches['attributes'] = mb_substr(
+                    $matches['attributes'],
+                    $attribute[0][1] + mb_strlen($attribute[0][0])
+                );
+            } while ($matches['attributes'] !== '');
 
             $attributes = empty($attributes) ? '' : ' ' . implode(' ', $attributes);
 
@@ -952,7 +1013,15 @@ class Escape
      */
     protected function _jsLinkRemoval($match)
     {
-        return str_replace($match[1], preg_replace('#href=.*?(?:(?:alert|prompt|confirm)(?:\(|&\#40;|`|&\#96;)|javascript:|livescript:|mocha:|charset=|window\.|\(?document\)?\.|\.cookie|<script|<xss|d\s*a\s*t\s*a\s*:)#si', '', $this->_filterAttributes($match[1])), $match[0]);
+        return str_replace(
+            $match[1],
+            preg_replace(
+                '#href=.*?(?:(?:alert|prompt|confirm)(?:\(|&\#40;|`|&\#96;)|javascript:|livescript:|mocha:|charset=|window\.|\(?document\)?\.|\.cookie|<script|<xss|d\s*a\s*t\s*a\s*:)#si',
+                '',
+                $this->_filterAttributes($match[1])
+            ),
+            $match[0]
+        );
     }
 
     /**
@@ -973,7 +1042,15 @@ class Escape
      */
     protected function _jsImgRemoval($match)
     {
-        return str_replace($match[1], preg_replace('#src=.*?(?:(?:alert|prompt|confirm|eval)(?:\(|&\#40;|`|&\#96;)|javascript:|livescript:|mocha:|charset=|window\.|\(?document\)?\.|\.cookie|<script|<xss|base64\s*,)#si', '', $this->_filterAttributes($match[1])), $match[0]);
+        return str_replace(
+            $match[1],
+            preg_replace(
+                '#src=.*?(?:(?:alert|prompt|confirm|eval)(?:\(|&\#40;|`|&\#96;)|javascript:|livescript:|mocha:|charset=|window\.|\(?document\)?\.|\.cookie|<script|<xss|base64\s*,)#si',
+                '',
+                $this->_filterAttributes($match[1])
+            ),
+            $match[0]
+        );
     }
 
     /**

@@ -477,7 +477,7 @@ if (!function_exists('bear_framework_basic_clean_str')) {
     }
 }
 if (!function_exists('bear_framework_entity_decode')) {
-    function bear_framework_entity_decode($str = '', $charset = null): string
+    function bear_framework_entity_decode($str = '', ?string $charset = null): string
     {
         $es = new nguyenanhung\Libraries\Escape\Escape();
         return $es->entityDecode($str, $charset);
